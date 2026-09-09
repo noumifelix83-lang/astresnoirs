@@ -4,3 +4,6 @@
 /catalogue/
 /.tmp_covers/
 *.docx
+node_modules
+dist
+/mot de passe supabase astres noirs/
