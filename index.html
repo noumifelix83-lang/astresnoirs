@@ -230,8 +230,13 @@
     background:var(--ink); color:var(--bg); text-align:center;
     padding:clamp(28px,4vw,42px) clamp(20px,5vw,56px);
   }
-  :root[data-theme="dark"] .slogan-band, :root:not([data-theme="light"]) .slogan-band{
+  :root[data-theme="dark"] .slogan-band{
     background:var(--surface-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .slogan-band{
+      background:var(--surface-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    }
   }
   .slogan-band p{
     font-family:"Fraunces",serif; font-style:italic; font-weight:500;
@@ -334,7 +339,10 @@
     display:flex; align-items:center; justify-content:center; font-family:"Fraunces",serif;
     font-weight:600; font-size:1.2rem; letter-spacing:0.02em;
   }
-  :root[data-theme="dark"] .portrait-frame, :root:not([data-theme="light"]) .portrait-frame{ background:var(--accent); color:var(--accent-ink); }
+  :root[data-theme="dark"] .portrait-frame{ background:var(--accent); color:var(--accent-ink); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .portrait-frame{ background:var(--accent); color:var(--accent-ink); }
+  }
   .shop-author .role{ font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-strong); }
   .shop-author h3{ font-size:1.35rem; margin-top:2px; }
   .shop-author p{ color:var(--ink-soft); font-size:0.92rem; margin-top:8px; max-width:66ch; }
@@ -372,7 +380,10 @@
   .step-text h4{ font-size:1rem; margin-bottom:4px; }
   .step-text p{ color:var(--ink-soft); font-size:0.88rem; }
   .auteurs-card{ background:var(--ink); color:var(--bg); padding:clamp(32px,4vw,48px); }
-  :root[data-theme="dark"] .auteurs-card, :root:not([data-theme="light"]) .auteurs-card{ background:var(--surface-2); color:var(--ink); border:1px solid var(--line); }
+  :root[data-theme="dark"] .auteurs-card{ background:var(--surface-2); color:var(--ink); border:1px solid var(--line); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .auteurs-card{ background:var(--surface-2); color:var(--ink); border:1px solid var(--line); }
+  }
   .auteurs-card h3{ color:inherit; font-size:1.4rem; }
   .auteurs-card p{ margin-top:14px; opacity:0.85; font-size:0.94rem; }
   .auteurs-card .btn-primary{ margin-top:24px; }
@@ -396,9 +407,15 @@
 
   /* ---------- Footer ---------- */
   footer{ background:var(--ink); color:var(--bg); padding:clamp(48px,6vw,72px) 0 28px; }
-  :root[data-theme="dark"] footer, :root:not([data-theme="light"]) footer{ background:var(--bg-deep); color:var(--ink); border-top:1px solid var(--line); }
+  :root[data-theme="dark"] footer{ background:var(--bg-deep); color:var(--ink); border-top:1px solid var(--line); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) footer{ background:var(--bg-deep); color:var(--ink); border-top:1px solid var(--line); }
+  }
   .footer-grid{ display:grid; grid-template-columns:1.3fr 0.7fr 0.7fr 1fr; gap:32px; padding-bottom:36px; border-bottom:1px solid rgba(243,236,220,0.15); }
-  :root[data-theme="dark"] .footer-grid, :root:not([data-theme="light"]) .footer-grid{ border-bottom-color:var(--line); }
+  :root[data-theme="dark"] .footer-grid{ border-bottom-color:var(--line); }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .footer-grid{ border-bottom-color:var(--line); }
+  }
   .footer-brand{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
   .footer-brand .brand-word{ color:inherit; }
   footer p{ opacity:0.7; font-size:0.9rem; max-width:32ch; }
