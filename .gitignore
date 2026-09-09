@@ -1,0 +1,6 @@
+.vercel
+.env*
+/boutique/
+/catalogue/
+/.tmp_covers/
+*.docx
