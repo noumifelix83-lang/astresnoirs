@@ -1,7 +1,16 @@
 import React from "react";
 import { useReveal } from "../hooks/useReveal.js";
+import { books } from "../data/books.js";
 
-const GENRES = ["Romans", "Poésie", "Essais", "Théâtre", "Contes", "Fables"];
+/* "match" est le genre exact tel qu'écrit dans les données du catalogue (src/data/books.js). */
+const GENRES = [
+  { label: "Romans", match: "Roman" },
+  { label: "Poésie", match: "Poésie" },
+  { label: "Essais", match: "Essai" },
+  { label: "Théâtre", match: "Théâtre" },
+  { label: "Contes", match: "Contes" },
+  { label: "Fables", match: "Fables" },
+].map((g) => ({ ...g, count: books.filter((b) => b.genre === g.match).length }));
 
 export default function About() {
   const [refA, classA] = useReveal();
@@ -28,12 +37,21 @@ export default function About() {
             </p>
           </div>
           <p className="pull">« Aux Éditions Astres Noirs, chaque livre a son histoire et son caractère unique. »</p>
+          <span className="eyebrow" style={{ display: "block", marginTop: 28 }}>
+            Déjà dans notre catalogue
+          </span>
           <div className="genre-row">
-            {GENRES.map((g) => (
-              <span className="genre-chip" key={g}>
-                {g}
-              </span>
-            ))}
+            {GENRES.map((g) =>
+              g.count > 0 ? (
+                <a href="#catalogue" className="genre-chip has-books" key={g.label}>
+                  {g.label} <span className="count">{g.count}</span>
+                </a>
+              ) : (
+                <span className="genre-chip is-empty" key={g.label}>
+                  {g.label} <span className="count">à venir</span>
+                </span>
+              )
+            )}
           </div>
         </div>
         <div ref={refB} className={classB}>

@@ -303,10 +303,24 @@ section{ position:relative; }
 .stat .num{ font-family:"Fraunces",serif; font-size:2.1rem; font-weight:600; color:var(--accent-strong); font-variant-numeric:tabular-nums; }
 .stat .label{ color:var(--ink-soft); font-size:0.86rem; text-align:right; max-width:20ch; }
 
-.genre-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.genre-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
 .genre-chip{
+  display:inline-flex; align-items:center; gap:7px;
   font-size:0.76rem; font-weight:600; color:var(--ink-soft); border:1px solid var(--line);
   padding:6px 12px; text-transform:uppercase; letter-spacing:0.04em;
+  text-decoration:none; background:none; cursor:default;
+}
+.genre-chip.has-books{
+  color:var(--ink); border-color:var(--accent-strong); cursor:pointer;
+  transition:background .2s ease, color .2s ease;
+}
+.genre-chip.has-books:hover{ background:var(--accent-strong); color:#FBF7EC; }
+.genre-chip.has-books .count{ color:var(--accent-strong); }
+.genre-chip.has-books:hover .count{ color:inherit; }
+.genre-chip.is-empty{ color:var(--ink-soft); opacity:0.55; border-style:dashed; }
+.genre-chip .count{
+  font-family:"Fraunces",serif; font-weight:600; font-variant-numeric:tabular-nums;
+  text-transform:none; letter-spacing:0; font-size:0.82em;
 }
 
 /* ---------- Collections ---------- */
