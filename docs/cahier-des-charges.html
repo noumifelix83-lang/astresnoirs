@@ -83,6 +83,11 @@
   }
   .item .txt{ font-size:0.95rem; flex:1; }
   .item .txt b{ font-weight:700; }
+  .resolved{
+    background:color-mix(in srgb, var(--accent) 14%, transparent); border-left:3px solid var(--accent-strong);
+    padding:12px 16px; font-size:0.86rem; color:var(--ink); margin:16px 0 4px;
+  }
+  .resolved b{ color:var(--accent-strong); }
   .tag{
     flex:none; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
     padding:3px 8px; border-radius:2px; white-space:nowrap; margin-top:1px;
@@ -174,6 +179,7 @@
       <span class="spec-num">04</span>
       <div class="spec-head">
         <h2>Le catalogue de livres</h2>
+        <p class="resolved"><b>Réalisé pour Félix Njandja :</b> couvertures, titres, résumés et prix des 5 pièces sont en ligne dans la boutique. Reste à faire pour les <b>autres auteurs</b> — le catalogue affiche pour l'instant des titres d'exemple en attente de vos données réelles.</p>
         <p class="why">C'est le cœur du site. Pour <b>chaque</b> ouvrage déjà publié, dans un fichier (tableur ou document) ou envoyé livre par livre :</p>
         <ul class="item-list">
           <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Photo de la couverture en haute résolution (min. 1500&nbsp;px de haut, format vertical, bon éclairage ou scan)</span></li>
@@ -204,11 +210,12 @@
       <span class="spec-num">06</span>
       <div class="spec-head">
         <h2>La boutique</h2>
-        <p class="why">Pour chaque article dérivé que vous souhaitez vendre (tote bag, carnet, t-shirt, etc.) :</p>
+        <p class="resolved"><b>Réalisé :</b> la boutique vend désormais exclusivement les 5 pièces de Félix Njandja (couvertures, résumés et prix réels). Les articles dérivés génériques (tote bag, carnet…) ont été retirés, comme convenu.</p>
+        <p class="why">Pour aller plus loin sur cette boutique auteur :</p>
         <ul class="item-list">
-          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Nom du produit, description courte, prix, et au moins une photo nette</span></li>
-          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Variantes disponibles (taille, couleur) et quantité en stock</span></li>
-          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Photos sous plusieurs angles ou en situation (porté, utilisé)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Confirmer si les 6 autres œuvres évoquées par la presse existent bien et doivent rejoindre la boutique</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Préciser le mode de livraison pour chaque format (les titres « Kindle » sont numériques — à clarifier si une version papier est aussi vendue par la maison)</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Si d'autres auteurs rejoignent un jour la vente directe, mêmes informations que ci-dessus (couverture, résumé, prix)</span></li>
         </ul>
       </div>
     </div>
