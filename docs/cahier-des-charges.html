@@ -1,0 +1,294 @@
+<title>Cahier des Charges Astres Noirs</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#F3ECDC;
+    --bg-deep:#EAE0C9;
+    --surface:#FBF7EC;
+    --surface-2:#E9DFC8;
+    --ink:#1B140D;
+    --ink-soft:#5B4E3C;
+    --accent:#D9821F;
+    --accent-strong:#B5451B;
+    --accent-ink:#1B140D;
+    --line:rgba(27,20,13,0.16);
+    --line-soft:rgba(27,20,13,0.09);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#100C08; --bg-deep:#0B0805; --surface:#1B150F; --surface-2:#221A12;
+      --ink:#F3ECDC; --ink-soft:#B9AC90; --accent:#F0A63F; --accent-strong:#E2793A;
+      --accent-ink:#100C08; --line:rgba(243,236,220,0.14); --line-soft:rgba(243,236,220,0.08);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#100C08; --bg-deep:#0B0805; --surface:#1B150F; --surface-2:#221A12;
+    --ink:#F3ECDC; --ink-soft:#B9AC90; --accent:#F0A63F; --accent-strong:#E2793A;
+    --accent-ink:#100C08; --line:rgba(243,236,220,0.14); --line-soft:rgba(243,236,220,0.08);
+    color-scheme: dark;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Karla", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:"Fraunces", Georgia, serif; font-weight:600; margin:0; text-wrap:balance; }
+  p{ margin:0; }
+  ::selection{ background:var(--accent); color:var(--accent-ink); }
+
+  .page{ max-width:800px; margin:0 auto; padding:clamp(48px,8vw,88px) clamp(20px,5vw,40px) 100px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{ display:flex; align-items:center; gap:14px; margin-bottom:44px; }
+  .masthead .glyph{ width:30px; height:30px; flex:none; }
+  .masthead .brand{ font-family:"Karla",sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); }
+
+  .doc-eyebrow{ font-size:0.76rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent-strong); }
+  h1.doc-title{ margin-top:16px; font-size:clamp(2rem,4vw,2.7rem); line-height:1.08; max-width:20ch; }
+  .doc-lede{ margin-top:22px; max-width:62ch; color:var(--ink-soft); font-size:1.06rem; }
+  .doc-lede strong{ color:var(--ink); font-weight:700; }
+
+  /* ---------- Priority legend ---------- */
+  .legend{
+    margin-top:32px; display:flex; flex-wrap:wrap; gap:22px; padding:18px 22px;
+    background:var(--surface); border:1px solid var(--line);
+  }
+  .legend-item{ display:flex; align-items:center; gap:9px; font-size:0.84rem; color:var(--ink-soft); }
+  .dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+  .dot.essentiel{ background:var(--accent-strong); }
+  .dot.recommande{ background:var(--accent); }
+  .dot.optionnel{ background:none; border:1.5px solid var(--ink-soft); }
+
+  /* ---------- Sections ---------- */
+  .sections{ margin-top:56px; display:flex; flex-direction:column; }
+  .spec-section{ display:grid; grid-template-columns:64px 1fr; gap:20px; padding:34px 0; border-top:1px solid var(--line); }
+  .sections .spec-section:last-child{ border-bottom:1px solid var(--line); }
+  .spec-num{ font-family:"Fraunces",serif; font-size:1.5rem; color:var(--accent-strong); font-variant-numeric:tabular-nums; padding-top:2px; }
+  .spec-head h2{ font-size:1.4rem; }
+  .spec-head .why{ margin-top:8px; color:var(--ink-soft); font-size:0.92rem; max-width:58ch; }
+
+  .item-list{ list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column; }
+  .item{ display:flex; align-items:flex-start; gap:12px; padding:11px 0; border-top:1px solid var(--line-soft); }
+  .item:first-child{ border-top:none; }
+  .item .box{
+    width:15px; height:15px; border:1.5px solid var(--ink-soft); margin-top:3px; flex:none;
+  }
+  .item .txt{ font-size:0.95rem; flex:1; }
+  .item .txt b{ font-weight:700; }
+  .tag{
+    flex:none; font-size:0.62rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    padding:3px 8px; border-radius:2px; white-space:nowrap; margin-top:1px;
+  }
+  .tag.essentiel{ background:var(--accent-strong); color:#FBF7EC; }
+  .tag.recommande{ background:rgba(217,130,31,0.16); color:var(--accent-strong); }
+  .tag.optionnel{ background:transparent; color:var(--ink-soft); border:1px solid var(--line); }
+
+  /* ---------- Closing ---------- */
+  .closing{ margin-top:56px; padding-top:40px; border-top:1px solid var(--line); }
+  .closing h2{ font-size:1.4rem; }
+  .closing p{ margin-top:14px; color:var(--ink-soft); font-size:0.98rem; max-width:62ch; }
+  .closing .steps{ margin-top:22px; display:flex; flex-direction:column; gap:10px; }
+  .closing .steps div{ display:flex; gap:10px; font-size:0.94rem; }
+  .closing .steps span{ color:var(--accent-strong); font-weight:700; }
+  .sign{
+    margin-top:44px; font-family:"Fraunces",serif; font-style:italic; font-size:1.15rem; color:var(--ink-soft);
+  }
+  .sign em{ font-style:italic; color:var(--accent-strong); }
+
+  @media (max-width:560px){
+    .spec-section{ grid-template-columns:1fr; }
+    .spec-num{ padding-top:0; }
+  }
+</style>
+
+<div class="page">
+
+  <div class="masthead">
+    <svg class="glyph" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="54" r="22" fill="var(--accent)"/>
+      <path d="M50 14 A38 38 0 1 1 24 84 A30 30 0 1 0 50 14 Z" fill="var(--ink)"/>
+    </svg>
+    <span class="brand">Éditions Astres Noirs — Projet de site web</span>
+  </div>
+
+  <span class="doc-eyebrow">Cahier des charges</span>
+  <h1 class="doc-title">Ce qu'il nous faut pour faire rêver les auteurs</h1>
+  <p class="doc-lede">La maquette actuelle prouve la direction artistique. Pour devenir le site définitif — <strong>celui qui donne envie à un auteur de vous confier son manuscrit et à un lecteur d'acheter un livre</strong> — il lui faut vos contenus réels. Cette liste rassemble tout ce dont nous avons besoin, classé par ordre d'importance.</p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot essentiel"></span> Essentiel — le site ne peut pas être mis en ligne sans</div>
+    <div class="legend-item"><span class="dot recommande"></span> Recommandé — renforce fortement l'impact</div>
+    <div class="legend-item"><span class="dot optionnel"></span> Optionnel — un plus, à ajouter plus tard</div>
+  </div>
+
+  <div class="sections">
+
+    <div class="spec-section">
+      <span class="spec-num">01</span>
+      <div class="spec-head">
+        <h2>Identité de marque</h2>
+        <p class="why">Le logo actuel a été détouré à partir d'un JPEG. Un fichier source évite toute perte de qualité sur grand écran ou à l'impression.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Logo en <b>fichier vectoriel</b> (.ai, .eps ou .svg) ou à défaut un PNG haute résolution (2000&nbsp;px min) sur fond transparent</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Variante du logo en <b>monochrome blanc</b>, pour les fonds très sombres ou les documents imprimés en noir</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Charte graphique existante (couleurs officielles en codes hexadécimaux, typographies imposées) si un document de marque existe déjà</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">02</span>
+      <div class="spec-head">
+        <h2>La maison, à jour et en chiffres</h2>
+        <p class="why">Le texte de présentation actuel vient de votre document de base. À vérifier et enrichir avec des chiffres récents.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Année de création de la maison et bref historique (2-3 phrases sur la genèse du projet)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Chiffres à jour : nombre de livres publiés à ce jour, nombre d'auteurs accompagnés, tirages notables</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Une citation du PDG ou du DG sur la vision de la maison, pour un encart « mot du fondateur »</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">03</span>
+      <div class="spec-head">
+        <h2>L'équipe — mettre des visages sur les rôles</h2>
+        <p class="why">Le site liste aujourd'hui des fonctions génériques (PDG, comité éditorial…). Des vrais noms et photos rassurent un auteur qui hésite à vous confier son manuscrit.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Noms et fonctions des membres clés (PDG, DG, responsable du comité éditorial, responsable communication)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Photos professionnelles de l'équipe, ou à défaut une photo de groupe</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Courte biographie (2-3 lignes) pour les postes en contact direct avec les auteurs</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">04</span>
+      <div class="spec-head">
+        <h2>Le catalogue de livres</h2>
+        <p class="why">C'est le cœur du site. Pour <b>chaque</b> ouvrage déjà publié, dans un fichier (tableur ou document) ou envoyé livre par livre :</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Photo de la couverture en haute résolution (min. 1500&nbsp;px de haut, format vertical, bon éclairage ou scan)</span></li>
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Titre exact, nom de l'auteur, collection (Sapiens / Calebasse / Rêve d'Afrique / Jeunesse) et genre</span></li>
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Résumé ou quatrième de couverture (100 à 200 mots)</span></li>
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Prix de vente (FCFA), et format disponible (papier, numérique, ou les deux)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">ISBN, nombre de pages, date de publication, disponibilité (en stock, à paraître, épuisé)</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Un court extrait (1 page) pour donner envie de lire, et les liens si le livre est aussi vendu ailleurs</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">05</span>
+      <div class="spec-head">
+        <h2>Vos auteurs à l'honneur</h2>
+        <p class="why">C'est l'élément qui « fait rêver » le plus concrètement : un futur auteur se projette en voyant comment vous traitez ceux qui vous ont déjà fait confiance.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Portrait photo de chaque auteur publié</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">2 à 3 <b>témoignages d'auteurs</b> sur leur expérience de publication avec vous (une citation suffit)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Prix littéraires, distinctions ou mentions presse obtenus par vos auteurs ou leurs livres</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Photos ou vidéos de dédicaces, lancements de livres, salons ou conférences</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">06</span>
+      <div class="spec-head">
+        <h2>La boutique</h2>
+        <p class="why">Pour chaque article dérivé que vous souhaitez vendre (tote bag, carnet, t-shirt, etc.) :</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Nom du produit, description courte, prix, et au moins une photo nette</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Variantes disponibles (taille, couleur) et quantité en stock</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Photos sous plusieurs angles ou en situation (porté, utilisé)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">07</span>
+      <div class="spec-head">
+        <h2>Commande, paiement et livraison</h2>
+        <p class="why">La maquette actuelle envoie les commandes par WhatsApp. À confirmer si c'est le mode de fonctionnement souhaité, ou si un paiement en ligne automatisé est nécessaire.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Zones de livraison couvertes (Yaoundé uniquement, tout le Cameroun, international ?) et frais associés</span></li>
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Moyens de paiement acceptés (Orange Money, MTN Mobile Money, espèces à la livraison, virement, carte)</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Délai de livraison moyen et politique en cas de rupture de stock</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">08</span>
+      <div class="spec-head">
+        <h2>L'appel à manuscrits</h2>
+        <p class="why">Un futur auteur doit savoir précisément à quoi s'attendre avant d'envoyer son texte — le flou décourage.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Genres actuellement recherchés (et ceux que vous ne publiez pas)</span></li>
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Format d'envoi souhaité (Word ou PDF) et longueur minimale/maximale du manuscrit</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Délai de réponse moyen après réception d'un manuscrit</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Grandes lignes du modèle (compte d'auteur, à compte d'éditeur, partagé) — même sans détailler les contrats</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">09</span>
+      <div class="spec-head">
+        <h2>Partenaires et preuve de sérieux</h2>
+        <p class="why">Votre document de présentation évoque déjà médias, librairies, bibliothèques et établissements scolaires partenaires — rendre ces liens visibles renforce la crédibilité.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Noms et logos des partenaires (librairies, écoles, médias, bibliothèques) qui acceptent d'être cités</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Liens vers des articles de presse déjà parus sur la maison</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">10</span>
+      <div class="spec-head">
+        <h2>Contact et réseaux sociaux</h2>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Confirmation des numéros et de l'email déjà en votre possession, et adresse physique complète si le public peut vous rendre visite</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Liens vers vos comptes réels (Facebook, Instagram, TikTok, LinkedIn, WhatsApp Business) — actuellement absents du site faute d'information</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Souhaitez-vous un formulaire d'inscription à une newsletter ?</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec-section">
+      <span class="spec-num">11</span>
+      <div class="spec-head">
+        <h2>Mise en ligne réelle</h2>
+        <p class="why">La version actuelle est une démonstration. Passer à un site accessible publiquement avec panier et paiement fonctionnels demande quelques décisions supplémentaires.</p>
+        <ul class="item-list">
+          <li class="item"><span class="box"></span><span class="tag essentiel">Essentiel</span><span class="txt">Nom de domaine souhaité (ex. astresnoirs.cm / .com) et choix d'un hébergement</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Si vous voulez un paiement en ligne automatisé plutôt qu'une commande par WhatsApp : choix d'un prestataire (ex. CinetPay, solutions Mobile Money) et ouverture d'un compte marchand</span></li>
+          <li class="item"><span class="box"></span><span class="tag recommande">Recommandé</span><span class="txt">Mentions légales et conditions générales de vente (obligatoires pour une boutique en ligne)</span></li>
+          <li class="item"><span class="box"></span><span class="tag optionnel">Optionnel</span><span class="txt">Qui, dans l'équipe, mettra à jour le catalogue après le lancement (nouveau livre, rupture de stock)</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="closing">
+    <h2>Comment nous transmettre ces éléments</h2>
+    <p>Pas besoin de tout réunir d'un coup : les éléments <strong>Essentiel</strong> suffisent pour un premier site fonctionnel, le reste peut suivre. Le plus simple :</p>
+    <div class="steps">
+      <div><span>1.</span> Un dossier partagé (Google Drive, WeTransfer) avec les photos de couverture et les logos en haute résolution</div>
+      <div><span>2.</span> Un document (Word ou tableur) listant vos livres avec les informations du point 04</div>
+      <div><span>3.</span> Vos réponses aux questions de paiement, livraison et nom de domaine, même provisoires</div>
+    </div>
+    <p class="sign">Dès réception, le site pourra vraiment donner à un écrivain l'envie d'écrire — <em>et d'écrire chez vous.</em></p>
+  </div>
+
+</div>
