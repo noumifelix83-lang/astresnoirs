@@ -1,5 +1,6 @@
 import React from "react";
 import { useReveal } from "../hooks/useReveal.js";
+import CollectionCard from "./CollectionCard.jsx";
 
 const COLLECTIONS = [
   {
@@ -46,7 +47,6 @@ const COLLECTIONS = [
 
 export default function Collections() {
   const [headRef, headClass] = useReveal();
-  const [gridRef, gridClass] = useReveal();
 
   return (
     <section className="collections section-pad" id="collections">
@@ -58,24 +58,9 @@ export default function Collections() {
         </div>
       </div>
       <div className="wrap">
-        <div ref={gridRef} className={"coll-grid " + gridClass}>
+        <div className="coll-grid">
           {COLLECTIONS.map((c) => (
-            <article className="coll-card" key={c.name}>
-              <svg
-                className="coll-glyph"
-                viewBox="0 0 40 40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
-                {c.glyph}
-              </svg>
-              <div>
-                <span className="role">{c.role}</span>
-                <h3>{c.name}</h3>
-              </div>
-              <p>{c.desc}</p>
-            </article>
+            <CollectionCard collection={c} key={c.name} />
           ))}
         </div>
       </div>

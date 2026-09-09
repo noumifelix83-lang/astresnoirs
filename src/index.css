@@ -133,6 +133,15 @@ button{ font-family:inherit; }
   border-bottom:1px solid var(--line-soft);
   padding-top:12px; padding-bottom:12px;
 }
+/* Avant le scroll, la nav est transparente sur un hero toujours sombre :
+   le texte et les icônes doivent rester clairs pour rester lisibles. */
+.nav:not(.is-scrolled) .brand-word{ color:#F3ECDC; }
+.nav:not(.is-scrolled) .nav-links a{ color:#E8DDC2; }
+.nav:not(.is-scrolled) .nav-links a:hover,
+.nav:not(.is-scrolled) .nav-links a:focus-visible{ color:#FBF7EC; border-color:#F0A63F; }
+.nav:not(.is-scrolled) .icon-btn{ color:#F3ECDC; border-color:rgba(243,236,220,0.4); }
+.nav:not(.is-scrolled) .icon-btn:hover{ border-color:#F0A63F; }
+.nav:not(.is-scrolled) .menu-toggle{ color:#F3ECDC; border-color:rgba(243,236,220,0.4); }
 .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
 .brand-mark{
   width:38px; height:38px; flex:none; display:flex; align-items:center; justify-content:center;
@@ -261,6 +270,8 @@ button{ font-family:inherit; }
 
 /* ---------- Sections generic ---------- */
 section{ position:relative; }
+/* Empêche la nav fixe de recouvrir le haut d'une section visée par un lien d'ancre. */
+#about, #collections, #catalogue, #boutique, #auteurs, #contact{ scroll-margin-top:84px; }
 .section-pad{ padding:clamp(64px,10vw,120px) 0; }
 .section-head{ display:flex; flex-direction:column; gap:14px; margin-bottom:clamp(36px,6vw,64px); }
 .section-head h2{ font-size:clamp(2rem,3.6vw,3rem); }
@@ -413,7 +424,7 @@ form{ display:flex; flex-direction:column; gap:16px; }
 .field label{ font-size:0.76rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); }
 .field input, .field textarea{
   background:var(--surface); border:1px solid var(--line); color:var(--ink);
-  padding:12px 14px; font-family:"Karla",sans-serif; font-size:0.95rem;
+  padding:12px 14px; font-family:"Karla",sans-serif; font-size:16px; width:100%;
 }
 .field textarea{ resize:vertical; min-height:110px; }
 .form-note{ font-size:0.8rem; color:var(--ink-soft); }
@@ -466,7 +477,7 @@ footer a:hover{ opacity:1; color:var(--accent); }
 .cart-line-info .name{ font-weight:600; font-size:0.92rem; }
 .cart-line-info .kind{ font-size:0.72rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
 .qty-row{ display:flex; align-items:center; gap:10px; }
-.qty-btn{ width:24px; height:24px; border:1px solid var(--line); background:none; color:var(--ink); cursor:pointer; font-size:0.85rem; line-height:1; }
+.qty-btn{ width:32px; height:32px; border:1px solid var(--line); background:none; color:var(--ink); cursor:pointer; font-size:0.95rem; line-height:1; flex:none; }
 .qty-val{ font-variant-numeric:tabular-nums; font-size:0.88rem; min-width:1.4ch; text-align:center; }
 .line-remove{ background:none; border:none; color:var(--ink-soft); font-size:0.75rem; text-decoration:underline; cursor:pointer; padding:0; margin-left:auto; }
 .drawer-foot{ padding:20px 24px 24px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:14px; }
@@ -494,9 +505,13 @@ footer a:hover{ opacity:1; color:var(--accent); }
     background:none; border:1px solid var(--line); color:var(--ink); cursor:pointer; z-index:75;
   }
   .coll-grid{ grid-template-columns:1fr; }
+  .coll-card{ min-height:0; }
+  .coll-card p{ margin-top:8px; }
   .book-grid{ grid-template-columns:1fr 1fr; }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   .hero h1{ max-width:none; }
+  .hero-inner{ padding-top:calc(72px + 2vh); }
+  .hero-badge{ width:72px; height:72px; margin-bottom:18px; }
 }
 @media (max-width:520px){
   .book-grid{ grid-template-columns:1fr; }

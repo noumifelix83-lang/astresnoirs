@@ -9,7 +9,6 @@ const featured = books.filter((b) => b.forSale);
 export default function Boutique() {
   const [headRef, headClass] = useReveal();
   const [authorRef, authorClass] = useReveal();
-  const [gridRef, gridClass] = useReveal();
 
   return (
     <section className="boutique section-pad" id="boutique">
@@ -36,7 +35,7 @@ export default function Boutique() {
             </p>
           </div>
         </div>
-        <div ref={gridRef} className={"shop-grid " + gridClass}>
+        <div className="shop-grid">
           {featured.map((b) => (
             <ShopCard book={b} key={b.id} />
           ))}
