@@ -2,6 +2,7 @@ import React from "react";
 import { books } from "../data/books.js";
 import ShopCard from "./ShopCard.jsx";
 import portrait from "../assets/covers/felix-njandja-portrait.webp";
+import logoIcon from "../assets/logo-icon.png";
 import { useReveal } from "../hooks/useReveal.js";
 
 const featured = books.filter((b) => b.forSale);
@@ -63,11 +64,15 @@ export default function Boutique() {
             rejoindra la vente en ligne au fil de sa mise en distribution numérique.
           </p>
         </div>
-        <div ref={authorRef} className={"shop-author " + authorClass}>
-          <div className="portrait-frame" style={{ backgroundImage: `url(${portrait})` }} />
-          <div>
+        <div ref={authorRef} className={"founder-spotlight " + authorClass}>
+          <div className="founder-portrait">
+            <div className="founder-portrait-img" style={{ backgroundImage: `url(${portrait})` }} />
+            <img className="founder-seal" src={logoIcon} alt="" aria-hidden="true" />
+          </div>
+          <div className="founder-copy">
             <span className="role">Auteur — Président Directeur Général</span>
             <h3>Félix Njandja</h3>
+            <p className="founder-signature-line">Fondateur des Éditions Astres Noirs</p>
             <p>
               Né à Bangoua–Bangangté, dans le département du Ndé (région de l'Ouest), Félix Njandja est enseignant de
               Lettres bilingues. Dramaturge, poète, romancier et opérateur économique, il est promoteur de plusieurs
@@ -75,6 +80,7 @@ export default function Boutique() {
               africaines et grand voyageur, il est aujourd'hui fondateur et Président Directeur Général des Éditions
               Astres Noirs — et l'auteur des six œuvres ci-dessous.
             </p>
+            <p className="founder-quote">« Qui Lira Vivra. »</p>
           </div>
         </div>
         <div className="shop-grid">
