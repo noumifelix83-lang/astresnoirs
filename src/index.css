@@ -443,6 +443,21 @@ section{ position:relative; }
 .auteurs-card p{ margin-top:14px; opacity:0.85; font-size:0.94rem; }
 .auteurs-card .btn-primary{ margin-top:24px; }
 
+/* La carte reste toujours claire-sur-sombre (dans les deux thèmes) : les champs
+   héritent donc leur couleur de texte de la carte plutôt que des tokens globaux. */
+.ms-fields{ display:flex; flex-direction:column; gap:16px; margin-top:22px; }
+.auteurs-card .field label{ color:inherit; opacity:0.75; }
+.auteurs-card .field select{
+  background:var(--surface); border:1px solid var(--line); color:var(--ink);
+  padding:12px 14px; font-family:"Karla",sans-serif; font-size:16px; width:100%;
+}
+.auteurs-card .field input[type="file"]{ padding:10px 12px; font-size:0.86rem; cursor:pointer; }
+.field-error{ font-size:0.78rem; color:#e0785a; }
+.form-note{ margin-top:16px; }
+.form-note-ok{ color:#8fd6a8 !important; opacity:1 !important; }
+.form-note-error{ color:#e0785a !important; opacity:1 !important; }
+.form-note-error a{ color:inherit; text-decoration:underline; }
+
 /* ---------- Contact ---------- */
 .contact{
   background:
