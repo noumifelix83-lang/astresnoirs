@@ -453,6 +453,10 @@ section{ position:relative; }
 }
 .auteurs-card .field input[type="file"]{ padding:10px 12px; font-size:0.86rem; cursor:pointer; }
 .field-error{ font-size:0.78rem; color:#e0785a; }
+.google-btn{ display:inline-flex; align-items:center; gap:10px; }
+.google-btn svg{ background:#fff; border-radius:3px; padding:2px; flex:none; }
+.link-btn{ background:none; border:none; padding:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit; font-size:0.85em; opacity:0.85; }
+.link-btn:hover{ opacity:1; }
 .form-note{ margin-top:16px; }
 .form-note-ok{ color:#8fd6a8 !important; opacity:1 !important; }
 .form-note-error{ color:#e0785a !important; opacity:1 !important; }

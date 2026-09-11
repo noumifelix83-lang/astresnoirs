@@ -1,5 +1,6 @@
 .vercel
 .env*
+!.env.example
 /boutique/
 /catalogue/
 /.tmp_covers/

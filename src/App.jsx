@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { CartProvider } from "./context/CartContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import SloganBand from "./components/SloganBand.jsx";
@@ -24,23 +25,25 @@ export default function App() {
   }, []);
 
   return (
-    <CartProvider>
-      <StructuredData />
-      <Nav />
-      <Hero />
-      <SloganBand />
-      <main>
-        <About />
-        <ArcDivider />
-        <Collections />
-        <Catalogue />
-        <ArcDivider flip />
-        <Boutique />
-        <Auteurs />
-        <Contact />
-      </main>
-      <Footer />
-      <CartDrawer />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <StructuredData />
+        <Nav />
+        <Hero />
+        <SloganBand />
+        <main>
+          <About />
+          <ArcDivider />
+          <Collections />
+          <Catalogue />
+          <ArcDivider flip />
+          <Boutique />
+          <Auteurs />
+          <Contact />
+        </main>
+        <Footer />
+        <CartDrawer />
+      </CartProvider>
+    </AuthProvider>
   );
 }

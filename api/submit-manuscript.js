@@ -1,11 +1,11 @@
 import { Resend } from "resend";
 
 const DEST_EMAIL = "aastresnoirs@gmail.com";
-const MAX_FILE_BYTES = 3.5 * 1024 * 1024; // 3,5 Mo — reste sous la limite de 4,5 Mo par requête de Vercel une fois encodé en base64
 
 /**
- * Reçoit la soumission de manuscrit du formulaire (src/components/Auteurs.jsx) en JSON
- * (fichier encodé en base64) et l'envoie par e-mail via Resend, pièce jointe comprise.
+ * Reçoit la soumission de manuscrit du formulaire (src/components/Auteurs.jsx) — le fichier
+ * est déjà stocké dans Supabase Storage à ce stade, on reçoit juste un lien temporaire vers
+ * lui — et envoie une notification par e-mail au comité éditorial via Resend.
  * Nécessite la variable d'environnement RESEND_API_KEY (Vercel → Project → Settings →
  * Environment Variables).
  */
@@ -15,20 +15,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, message: "Méthode non autorisée." });
   }
 
-  const { name, email, title, genre, message, botcheck, fileName, fileType, fileBase64 } = req.body || {};
+  const { name, email, title, genre, message, botcheck, fileName, fileUrl } = req.body || {};
 
   // Piège à robots : un champ caché que seul un bot remplirait.
   if (botcheck) {
     return res.status(200).json({ success: true });
   }
 
-  if (!name || !email || !title || !genre || !message || !fileBase64 || !fileName) {
+  if (!name || !email || !title || !genre || !message) {
     return res.status(400).json({ success: false, message: "Champs manquants." });
-  }
-
-  const approxFileBytes = (fileBase64.length * 3) / 4;
-  if (approxFileBytes > MAX_FILE_BYTES) {
-    return res.status(413).json({ success: false, message: "Fichier trop volumineux." });
   }
 
   if (!process.env.RESEND_API_KEY) {
@@ -49,8 +44,10 @@ export default async function handler(req, res) {
         `Courriel : ${email}\n` +
         `Titre de l'ouvrage : ${title}\n` +
         `Genre : ${genre}\n\n` +
-        `Résumé & présentation de l'auteur :\n${message}`,
-      attachments: [{ filename: fileName, content: fileBase64 }],
+        `Résumé & présentation de l'auteur :\n${message}\n\n` +
+        (fileUrl
+          ? `Manuscrit (${fileName || "fichier"}) : ${fileUrl}\n(lien valable 30 jours)`
+          : `Manuscrit : voir la table "manuscripts" dans Supabase.`),
     });
 
     if (error) {
