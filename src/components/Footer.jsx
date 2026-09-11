@@ -44,6 +44,10 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© 2026 Éditions Astres Noirs. Tous droits réservés.</span>
+          <span className="footer-legal">
+            <a href="/confidentialite.html">Confidentialité</a>
+            <a href="/conditions.html">Conditions d'utilisation</a>
+          </span>
           <span>Yaoundé, Cameroun</span>
         </div>
       </div>

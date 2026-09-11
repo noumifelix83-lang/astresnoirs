@@ -509,6 +509,9 @@ footer ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:co
 footer a{ text-decoration:none; opacity:0.85; font-size:0.9rem; }
 footer a:hover{ opacity:1; color:var(--accent); }
 .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:22px; font-size:0.78rem; opacity:0.55; }
+.footer-legal{ display:flex; gap:16px; }
+.footer-legal a{ color:inherit; }
+.footer-legal a:hover{ opacity:0.8; }
 
 /* ---------- Cart drawer ---------- */
 .overlay{
