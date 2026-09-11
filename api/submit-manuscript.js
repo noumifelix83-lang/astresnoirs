@@ -40,7 +40,7 @@ export default async function handler(req, res) {
 
   try {
     const { error } = await resend.emails.send({
-      from: "Astres Noirs — Site <onboarding@resend.dev>",
+      from: "Astres Noirs — Site <manuscrits@astresnoirs.com>",
       to: DEST_EMAIL,
       replyTo: email,
       subject: `Nouvelle soumission de manuscrit — ${title}`,
