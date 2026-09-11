@@ -12,6 +12,7 @@ import Auteurs from "./components/Auteurs.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
+import StructuredData from "./components/StructuredData.jsx";
 
 export default function App() {
   /* Si l'URL contient une ancre (#boutique…), le navigateur tente d'y défiler
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <CartProvider>
+      <StructuredData />
       <Nav />
       <Hero />
       <SloganBand />

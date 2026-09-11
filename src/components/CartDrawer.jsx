@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContext.jsx";
+import { usdApprox } from "../utils/currency.js";
 
 export default function CartDrawer() {
   const { lines, subtotal, isOpen, closeCart, incItem, decItem, removeItem, clearCart, checkoutUrl, fmt } =
@@ -58,7 +59,10 @@ export default function CartDrawer() {
         <div className="drawer-foot">
           <div className="subtotal-row">
             <span>Sous-total</span>
-            <span className="amt">{fmt(subtotal)}</span>
+            <span className="amt">
+              {fmt(subtotal)}
+              {subtotal > 0 && <span className="eur"> (≈ {usdApprox(subtotal)} US)</span>}
+            </span>
           </div>
           <a
             className="btn btn-primary plate btn-block"

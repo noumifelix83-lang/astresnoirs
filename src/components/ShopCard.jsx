@@ -1,6 +1,7 @@
 import React from "react";
 import { useCart } from "../context/CartContext.jsx";
 import { useReveal } from "../hooks/useReveal.js";
+import { usdApprox } from "../utils/currency.js";
 
 export default function ShopCard({ book }) {
   const { addItem, inquire, fmt } = useCart();
@@ -21,7 +22,7 @@ export default function ShopCard({ book }) {
             <>
               <span className="price">
                 {fmt(book.price)}
-                <span className="eur">({book.priceEur})</span>
+                <span className="eur">(≈ {usdApprox(book.price)} US)</span>
               </span>
               <button className="btn btn-primary plate btn-sm" onClick={() => addItem(book.id)}>
                 Commander

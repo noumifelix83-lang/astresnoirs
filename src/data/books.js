@@ -1,11 +1,11 @@
-import aissatouAbba from "../assets/covers/aissatou-abba.jpg";
-import rachel1 from "../assets/covers/rachel-1.jpg";
-import rachel2 from "../assets/covers/rachel-2.jpg";
-import zeukap from "../assets/covers/zeukap.jpg";
-import graal from "../assets/covers/recherche-du-graal.jpg";
-import alouette from "../assets/covers/plumes-alouette.jpg";
-import weya from "../assets/covers/weya-paix-securite.jpg";
-import roger from "../assets/covers/roger-problematique-sante.jpg";
+import aissatouAbba from "../assets/covers/aissatou-abba.webp";
+import rachel1 from "../assets/covers/rachel-1.webp";
+import rachel2 from "../assets/covers/rachel-2.webp";
+import zeukap from "../assets/covers/zeukap.webp";
+import graal from "../assets/covers/recherche-du-graal.webp";
+import alouette from "../assets/covers/plumes-alouette.webp";
+import weya from "../assets/covers/weya-paix-securite.webp";
+import roger from "../assets/covers/roger-problematique-sante.webp";
 
 /**
  * forSale:true + priceKnown:true  -> bouton "Commander" (ajoute au panier)
