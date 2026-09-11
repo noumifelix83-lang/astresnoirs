@@ -10,11 +10,18 @@ const STEPS = [
 
 const GENRES = ["Roman", "Poésie", "Essai", "Théâtre", "Contes", "Fables", "Autre"];
 
-/* Clé gratuite à obtenir sur web3forms.com (aucun compte à créer, juste une adresse
-   e-mail à confirmer) — le formulaire lui envoie directement les soumissions par courriel,
-   pièce jointe comprise, sans backend à héberger. À remplacer avant mise en service. */
-const WEB3FORMS_ACCESS_KEY = "119e8e2e-8a27-4347-9a3f-fd5e25b92354";
-const MAX_FILE_MB = 5;
+/* Envoi géré par la fonction serveur api/submit-manuscript.js (Resend) — voir ce fichier
+   pour la configuration requise (variable d'environnement RESEND_API_KEY sur Vercel). */
+const MAX_FILE_MB = 3;
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1] || "");
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function Auteurs() {
   const [refA, classA] = useReveal();
@@ -37,15 +44,29 @@ export default function Auteurs() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (fileError) return;
-    setStatus("sending");
     const form = e.target;
-    const data = new FormData(form);
-    data.append("access_key", WEB3FORMS_ACCESS_KEY);
-    data.append("subject", "Nouvelle soumission de manuscrit — Astres Noirs");
-    data.append("from_name", "Formulaire Astres Noirs");
+    const fd = new FormData(form);
+    const file = form.querySelector("#ms-file").files[0];
+    if (!file) return;
 
+    setStatus("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
+      const fileBase64 = await readFileAsBase64(file);
+      const res = await fetch("/api/submit-manuscript", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fd.get("name"),
+          email: fd.get("email"),
+          title: fd.get("Titre de l'ouvrage"),
+          genre: fd.get("Genre"),
+          message: fd.get("message"),
+          botcheck: fd.get("botcheck"),
+          fileName: file.name,
+          fileType: file.type,
+          fileBase64,
+        }),
+      });
       const json = await res.json();
       if (json.success) {
         setStatus("done");
