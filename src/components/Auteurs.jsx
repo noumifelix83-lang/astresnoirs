@@ -13,7 +13,7 @@ const GENRES = ["Roman", "Poésie", "Essai", "Théâtre", "Contes", "Fables", "A
 /* Clé gratuite à obtenir sur web3forms.com (aucun compte à créer, juste une adresse
    e-mail à confirmer) — le formulaire lui envoie directement les soumissions par courriel,
    pièce jointe comprise, sans backend à héberger. À remplacer avant mise en service. */
-const WEB3FORMS_ACCESS_KEY = "REMPLACER_PAR_LA_CLE_WEB3FORMS";
+const WEB3FORMS_ACCESS_KEY = "119e8e2e-8a27-4347-9a3f-fd5e25b92354";
 const MAX_FILE_MB = 5;
 
 export default function Auteurs() {
