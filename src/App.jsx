@@ -17,11 +17,17 @@ import StructuredData from "./components/StructuredData.jsx";
 
 export default function App() {
   /* Si l'URL contient une ancre (#boutique…), le navigateur tente d'y défiler
-     avant même que React n'ait construit le contenu — on corrige au montage. */
+     avant même que React n'ait construit le contenu — on corrige au montage.
+     On retire ensuite l'ancre de l'adresse : sans ça, elle reste affichée dans
+     la barre du navigateur (et donc dans l'historique/les suggestions) et
+     ramène systématiquement sur cette section lors des prochaines visites —
+     notamment après une connexion Google, qui revient sur #auteurs. */
   useEffect(() => {
     if (!window.location.hash) return;
-    const el = document.getElementById(window.location.hash.slice(1));
+    const id = window.location.hash.slice(1);
+    const el = document.getElementById(id);
     if (el) el.scrollIntoView();
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
   }, []);
 
   return (
