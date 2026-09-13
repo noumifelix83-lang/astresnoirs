@@ -130,6 +130,3 @@ export const books = [
     desc: "Une plongée dans les enjeux de santé des anciennes colonies françaises d'Afrique subsaharienne, entre désillusions post-1986 et nécessité de réinventer le système de santé à partir de priorités et de spécificités locales.",
   },
 ];
-
-/** Ordre d'affichage du diaporama en fond de bannière. */
-export const heroSlideIds = ["fn5"]; // La recherche du Graal
