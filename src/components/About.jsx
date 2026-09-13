@@ -22,13 +22,18 @@ export default function About() {
         <div ref={refA} className={classA}>
           <span className="eyebrow">La maison</span>
           <h2 style={{ marginTop: 14 }}>
-            Une maison généraliste, née à Yaoundé, tournée vers le monde.
+            Une maison généraliste, née à Yaoundé, ambitionnée pour l'Afrique et le monde.
           </h2>
           <div className="about-copy" style={{ marginTop: 24 }}>
             <p>
               Face à un marché de l'édition national et international exigeant, nous avons choisi d'ouvrir nos
               portes à tous les genres littéraires. Chaque manuscrit reçoit un travail éditorial méticuleux, mené par
               une équipe de passionnés du livre, pour que le projet de l'auteur devienne une réussite éditoriale.
+            </p>
+            <p>
+              Au-delà de l'édition, notre maison couvre l'ensemble de la chaîne du livre — de l'impression à la
+              diffusion — avec l'ambition de devenir un modèle de référence dans l'univers de la littérature
+              camerounaise et africaine.
             </p>
             <p>
               Notre stratégie de communication et nos plateformes digitales font vivre le lien entre éditeur, auteurs

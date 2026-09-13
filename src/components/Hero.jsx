@@ -35,7 +35,7 @@ export default function Hero() {
         <div className="hero-badge">
           <img src={logoIcon} alt="Astres Noirs" />
         </div>
-        <div className="hero-eyebrow">Maison d'édition — Yaoundé, Cameroun</div>
+        <div className="hero-eyebrow">Édition, impression &amp; gestion du livre — Yaoundé, Cameroun</div>
         <h1>
           Chaque livre a
           <br />
@@ -46,7 +46,8 @@ export default function Hero() {
         </p>
         <p className="hero-lede">
           Les Éditions Astres Noirs accompagnent romanciers, poètes, essayistes, dramaturges, conteurs et fabulistes,
-          de l'écriture jusqu'aux mains du lecteur — au Cameroun et au-delà.
+          de l'écriture à l'impression jusqu'aux mains du lecteur — une maison pensée pour rayonner du Cameroun à
+          l'Afrique, et au-delà.
         </p>
         <div className="hero-cta">
           <a href="#catalogue" className="btn btn-primary plate">

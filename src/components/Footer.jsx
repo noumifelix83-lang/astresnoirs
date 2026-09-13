@@ -13,7 +13,7 @@ export default function Footer() {
               </span>
               <span className="brand-word">Astres Noirs</span>
             </div>
-            <p>Maison d'édition généraliste basée à Yaoundé. Qui Lira Vivra.</p>
+            <p>Édition, impression &amp; gestion du livre — de Yaoundé à l'Afrique. Qui Lira Vivra.</p>
           </div>
           <div>
             <h5>Explorer</h5>

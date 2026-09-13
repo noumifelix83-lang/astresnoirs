@@ -26,7 +26,7 @@ export default function StructuredData() {
       addressCountry: "CM",
     },
     description:
-      "Maison d'édition généraliste basée à Yaoundé, Cameroun. Catalogue de livres (romans, poésie, essais, théâtre, contes, fables) et boutique en ligne.",
+      "Maison d'édition, d'impression et de gestion du livre basée à Yaoundé, Cameroun, rayonnant du Cameroun à l'Afrique. Catalogue de livres (romans, poésie, essais, théâtre, contes, fables) et boutique en ligne.",
   };
 
   const website = {
