@@ -1,32 +1,40 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logoIcon from "../assets/logo-icon.png";
 import { useCart } from "../context/CartContext.jsx";
 
 const LINKS = [
-  { href: "#about", label: "La maison" },
-  { href: "#collections", label: "Collections" },
-  { href: "#catalogue", label: "Catalogue" },
-  { href: "#boutique", label: "Boutique" },
-  { href: "#auteurs", label: "Auteurs" },
-  { href: "#actualites", label: "Actualités" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "La maison" },
+  { href: "/#collections", label: "Collections" },
+  { href: "/#catalogue", label: "Catalogue" },
+  { href: "/#boutique", label: "Boutique" },
+  { href: "/#auteurs", label: "Auteurs" },
+  { href: "/actualites", label: "Actualités" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { count, openCart } = useCart();
+  const { pathname } = useLocation();
+  /* Seule la page d'accueil a une bannière sombre en tête de page : ailleurs,
+     le fond est clair dès le premier pixel, donc la nav doit toujours être
+     dans son état « scrolled » (icônes et texte foncés), sous peine d'être
+     invisible (blanc sur fond clair). */
+  const onHome = pathname === "/";
 
   useEffect(() => {
+    if (!onHome) return;
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     document.addEventListener("scroll", onScroll, { passive: true });
     return () => document.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [onHome]);
 
   return (
-    <nav className={"nav" + (scrolled ? " is-scrolled" : "")} id="nav">
-      <a className="brand" href="#hero">
+    <nav className={"nav" + (scrolled || !onHome ? " is-scrolled" : "")} id="nav">
+      <Link className="brand" to="/#hero">
         <span className="brand-mark">
           <img src={logoIcon} alt="Astres Noirs" />
         </span>
@@ -34,14 +42,14 @@ export default function Nav() {
           Astres Noirs
           <small>Éditions</small>
         </span>
-      </a>
+      </Link>
 
       <ul className={"nav-links" + (menuOpen ? " is-open" : "")} id="navLinks">
         {LINKS.map((l) => (
           <li key={l.href}>
-            <a href={l.href} onClick={() => setMenuOpen(false)}>
+            <Link to={l.href} onClick={() => setMenuOpen(false)}>
               {l.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

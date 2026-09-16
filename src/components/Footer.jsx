@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logoIcon from "../assets/logo-icon.png";
 
 export default function Footer() {
@@ -18,20 +19,20 @@ export default function Footer() {
           <div>
             <h5>Explorer</h5>
             <ul>
-              <li><a href="#about">La maison</a></li>
-              <li><a href="#catalogue">Catalogue</a></li>
-              <li><a href="#boutique">Boutique</a></li>
-              <li><a href="#auteurs">Auteurs</a></li>
-              <li><a href="#actualites">Actualités</a></li>
+              <li><Link to="/#about">La maison</Link></li>
+              <li><Link to="/#catalogue">Catalogue</Link></li>
+              <li><Link to="/#boutique">Boutique</Link></li>
+              <li><Link to="/#auteurs">Auteurs</Link></li>
+              <li><Link to="/actualites">Actualités</Link></li>
             </ul>
           </div>
           <div>
             <h5>Collections</h5>
             <ul>
-              <li><a href="#collections">Sapiens</a></li>
-              <li><a href="#collections">Calebasse</a></li>
-              <li><a href="#collections">Rêve d'Afrique</a></li>
-              <li><a href="#collections">Jeunesse</a></li>
+              <li><Link to="/#collections">Sapiens</Link></li>
+              <li><Link to="/#collections">Calebasse</Link></li>
+              <li><Link to="/#collections">Rêve d'Afrique</Link></li>
+              <li><Link to="/#collections">Jeunesse</Link></li>
             </ul>
           </div>
           <div>
