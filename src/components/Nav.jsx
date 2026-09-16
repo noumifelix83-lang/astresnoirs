@@ -8,6 +8,7 @@ const LINKS = [
   { href: "#catalogue", label: "Catalogue" },
   { href: "#boutique", label: "Boutique" },
   { href: "#auteurs", label: "Auteurs" },
+  { href: "#actualites", label: "Actualités" },
   { href: "#contact", label: "Contact" },
 ];
 

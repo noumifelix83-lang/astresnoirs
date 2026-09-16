@@ -10,6 +10,7 @@ import Collections from "./components/Collections.jsx";
 import Catalogue from "./components/Catalogue.jsx";
 import Boutique from "./components/Boutique.jsx";
 import Auteurs from "./components/Auteurs.jsx";
+import Actualites from "./components/Actualites.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
@@ -45,6 +46,7 @@ export default function App() {
           <ArcDivider flip />
           <Boutique />
           <Auteurs />
+          <Actualites />
           <Contact />
         </main>
         <Footer />

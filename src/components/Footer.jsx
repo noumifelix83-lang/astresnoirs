@@ -22,6 +22,7 @@ export default function Footer() {
               <li><a href="#catalogue">Catalogue</a></li>
               <li><a href="#boutique">Boutique</a></li>
               <li><a href="#auteurs">Auteurs</a></li>
+              <li><a href="#actualites">Actualités</a></li>
             </ul>
           </div>
           <div>
