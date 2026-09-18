@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useReveal } from "../hooks/useReveal.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { supabase } from "../lib/supabaseClient.js";
+import { equipe } from "../data/equipe.js";
 
 const STEPS = [
   { title: "Connexion", text: "Connectez-vous avec votre compte Google — cela nous permet de vous identifier et de suivre votre dossier." },
@@ -13,6 +14,23 @@ const STEPS = [
 const GENRES = ["Roman", "Poésie", "Essai", "Théâtre", "Contes", "Fables", "Autre"];
 const MAX_FILE_MB = 20;
 const STORAGE_BUCKET = "manuscripts";
+
+function TeamCard({ member }) {
+  const [ref, cls] = useReveal();
+  return (
+    <div ref={ref} className={"team-card " + cls}>
+      <div className="team-photo" style={{ backgroundImage: `url(${member.photo})` }} />
+      <div className="team-info">
+        <h3>{member.name}</h3>
+        {member.roles.map((r, i) => (
+          <p className="team-role" key={i}>
+            {r}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Auteurs() {
   const [refA, classA] = useReveal();
@@ -219,6 +237,16 @@ export default function Auteurs() {
                 </form>
               </>
             )}
+          </div>
+        </div>
+
+        <div className="auteurs-team">
+          <span className="eyebrow">L'équipe</span>
+          <h3 style={{ marginTop: 10 }}>Les visages qui liront votre manuscrit.</h3>
+          <div className="team-grid">
+            {equipe.map((m) => (
+              <TeamCard member={m} key={m.id} />
+            ))}
           </div>
         </div>
       </div>

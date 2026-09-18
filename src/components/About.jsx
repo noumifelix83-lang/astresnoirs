@@ -1,7 +1,6 @@
 import React from "react";
 import { useReveal } from "../hooks/useReveal.js";
 import { books } from "../data/books.js";
-import { equipe } from "../data/equipe.js";
 
 /* "match" est le genre exact tel qu'écrit dans les données du catalogue (src/data/books.js). */
 const GENRES = [
@@ -16,7 +15,6 @@ const GENRES = [
 export default function About() {
   const [refA, classA] = useReveal();
   const [refB, classB] = useReveal();
-  const [refC, classC] = useReveal();
 
   return (
     <section className="about section-pad" id="about">
@@ -80,24 +78,6 @@ export default function About() {
               <span className="label">Réseaux de diffusion, local et international</span>
             </div>
           </div>
-        </div>
-      </div>
-      <div ref={refC} className={"wrap about-team " + classC}>
-        <span className="eyebrow">L'équipe</span>
-        <div className="team-row">
-          {equipe.map((m) => (
-            <div className="team-chip" key={m.id}>
-              <div className="team-chip-photo" style={{ backgroundImage: `url(${m.photo})` }} />
-              <div className="team-chip-info">
-                <strong>{m.name}</strong>
-                {m.roles.map((r, i) => (
-                  <span className="team-chip-role" key={i}>
-                    {r}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
