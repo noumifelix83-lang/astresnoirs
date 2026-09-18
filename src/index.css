@@ -493,15 +493,17 @@ section{ position:relative; }
 .actu-detail-body{ margin-top:28px; display:flex; flex-direction:column; gap:16px; }
 .actu-detail-body p{ color:var(--ink-soft); font-size:1rem; line-height:1.7; }
 
-/* ---------- Équipe (page dédiée /equipe) ---------- */
-.team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
-.team-card{ background:var(--surface); border:1px solid var(--line); }
-.team-photo{ aspect-ratio:4/5; background-size:cover; background-position:center top; }
-.team-info{ padding:18px 20px 22px; }
-.team-info h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.1rem; line-height:1.28; }
-.team-role{ color:var(--ink-soft); font-size:0.84rem; margin-top:6px; line-height:1.45; }
-@media (max-width:900px){ .team-grid{ grid-template-columns:1fr 1fr; } }
-@media (max-width:560px){ .team-grid{ grid-template-columns:1fr; max-width:320px; margin:0 auto; } }
+/* ---------- Équipe (intégrée à la section "La maison") ---------- */
+.about-team{ margin-top:clamp(40px,6vw,64px); }
+.team-row{ display:flex; flex-wrap:wrap; gap:28px; margin-top:20px; }
+.team-chip{ display:flex; align-items:center; gap:14px; }
+.team-chip-photo{
+  width:64px; height:64px; flex:none; border-radius:50%; background-size:cover; background-position:center top;
+  border:1px solid var(--line);
+}
+.team-chip-info{ display:flex; flex-direction:column; }
+.team-chip-info strong{ font-family:"Fraunces",serif; font-weight:600; font-size:0.98rem; }
+.team-chip-role{ color:var(--ink-soft); font-size:0.8rem; line-height:1.4; }
 
 /* ---------- Contact ---------- */
 .contact{

@@ -10,7 +10,6 @@ const LINKS = [
   { href: "/#boutique", label: "Boutique" },
   { href: "/#auteurs", label: "Auteurs" },
   { href: "/actualites", label: "Actualités" },
-  { href: "/equipe", label: "Équipe" },
   { href: "/#contact", label: "Contact" },
 ];
 
