@@ -8,15 +8,15 @@ import jeanJacquesFoko from "../assets/team/jean-jacques-foko.webp";
  */
 export const equipe = [
   {
-    id: "marcel-ngono",
-    name: "Marcel Ngono",
-    roles: ["Secrétaire", "Responsable de la Communication et des relations publiques"],
-    photo: marcelNgono,
-  },
-  {
     id: "jean-jacques-foko",
     name: "Jean Jacques Foko",
-    roles: ["Journaliste — critique littéraire"],
+    roles: ["Journaliste — critique littéraire", "Responsable de la Communication et des relations publiques"],
     photo: jeanJacquesFoko,
+  },
+  {
+    id: "marcel-ngono",
+    name: "Marcel Ngono",
+    roles: ["Secrétaire"],
+    photo: marcelNgono,
   },
 ];
