@@ -493,6 +493,16 @@ section{ position:relative; }
 .actu-detail-body{ margin-top:28px; display:flex; flex-direction:column; gap:16px; }
 .actu-detail-body p{ color:var(--ink-soft); font-size:1rem; line-height:1.7; }
 
+/* ---------- Équipe (page dédiée /equipe) ---------- */
+.team-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+.team-card{ background:var(--surface); border:1px solid var(--line); }
+.team-photo{ aspect-ratio:4/5; background-size:cover; background-position:center top; }
+.team-info{ padding:18px 20px 22px; }
+.team-info h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.1rem; line-height:1.28; }
+.team-role{ color:var(--ink-soft); font-size:0.84rem; margin-top:6px; line-height:1.45; }
+@media (max-width:900px){ .team-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .team-grid{ grid-template-columns:1fr; max-width:320px; margin:0 auto; } }
+
 /* ---------- Contact ---------- */
 .contact{
   background:

@@ -24,6 +24,7 @@ export default function Footer() {
               <li><Link to="/#boutique">Boutique</Link></li>
               <li><Link to="/#auteurs">Auteurs</Link></li>
               <li><Link to="/actualites">Actualités</Link></li>
+              <li><Link to="/equipe">Équipe</Link></li>
             </ul>
           </div>
           <div>
