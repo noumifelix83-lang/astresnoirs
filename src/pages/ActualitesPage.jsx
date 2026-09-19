@@ -15,10 +15,10 @@ export default function ActualitesPage() {
       <div className="wrap">
         <div ref={headRef} className={"section-head " + headClass}>
           <span className="eyebrow">Actualités</span>
-          <h1>Les dernières nouvelles de la maison.</h1>
+          <h1>Astres Actu, le futur journal en ligne de la maison.</h1>
           <p className="lede">
-            Annonces, publications et coulisses des Éditions Astres Noirs — un premier aperçu du journal en ligne
-            à venir.
+            En attendant son lancement, retrouvez ici les annonces, publications et coulisses des Éditions Astres
+            Noirs — les premières pages d'Astres Actu.
           </p>
         </div>
         <div className="actu-grid actu-grid-page">

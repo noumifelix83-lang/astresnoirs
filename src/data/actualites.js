@@ -1,8 +1,9 @@
 /**
- * Actualités de la maison — première brique du futur « journal en ligne » des
- * Éditions Astres Noirs. Chaque entrée est un billet simple (titre, date,
- * résumé, corps de texte, et éventuellement une vidéo). Pour publier un
- * nouveau billet, il suffit d'ajouter un objet en tête de ce tableau.
+ * Actualités de la maison — première brique d'« Astres Actu », le futur
+ * journal en ligne des Éditions Astres Noirs (nom de domaine prévu :
+ * astresactu.com). Chaque entrée est un billet simple (titre, date, résumé,
+ * corps de texte, et éventuellement une vidéo). Pour publier un nouveau
+ * billet, il suffit d'ajouter un objet en tête de ce tableau.
  */
 export const actualites = [
   {
