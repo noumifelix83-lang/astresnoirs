@@ -16,7 +16,7 @@ export default function StructuredData() {
     name: "Éditions Astres Noirs",
     alternateName: "Astres Noirs",
     url: SITE_URL,
-    logo: SITE_URL + "icon-512.png",
+    logo: SITE_URL + "icon-512.png?v=2",
     slogan: "Qui Lira Vivra",
     email: "aastresnoirs@gmail.com",
     telephone: "+237679635690",
