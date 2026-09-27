@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useReveal } from "../hooks/useReveal.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { supabase } from "../lib/supabaseClient.js";
@@ -89,12 +90,15 @@ export default function Auteurs() {
         .from(STORAGE_BUCKET)
         .createSignedUrl(path, 60 * 60 * 24 * 30);
 
+      // Le serveur exige un jeton valide : seul un auteur connecté peut déclencher les e-mails.
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData?.session?.access_token;
+
       await fetch("/api/submit-manuscript", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
         body: JSON.stringify({
           name: user.user_metadata?.full_name || user.user_metadata?.name || user.email,
-          email: user.email,
           title,
           genre,
           message,
@@ -172,6 +176,11 @@ export default function Auteurs() {
                   <button type="button" className="link-btn" onClick={signOut}>
                     se déconnecter
                   </button>
+                </p>
+                <p style={{ marginTop: 6 }}>
+                  <Link to="/mon-espace" className="link-btn">
+                    Suivre l'avancement de mes manuscrits →
+                  </Link>
                 </p>
                 <form onSubmit={handleSubmit}>
                   <div className="ms-fields">

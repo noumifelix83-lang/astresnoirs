@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /mon-espace
+Disallow: /tableau-de-bord
 
 Sitemap: https://www.astresnoirs.net/sitemap.xml

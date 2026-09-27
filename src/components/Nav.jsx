@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoIcon from "../assets/logo-icon.png";
 import { useCart } from "../context/CartContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const LINKS = [
   { href: "/#about", label: "La maison" },
@@ -17,6 +18,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { count, openCart } = useCart();
+  const { user, isStaff } = useAuth();
   const { pathname } = useLocation();
   /* Seule la page d'accueil a une bannière sombre en tête de page : ailleurs,
      le fond est clair dès le premier pixel, donc la nav doit toujours être
@@ -55,6 +57,24 @@ export default function Nav() {
       </ul>
 
       <div className="nav-right">
+        {isStaff && (
+          <Link className="icon-btn" to="/tableau-de-bord" aria-label="Tableau de bord de l'équipe" title="Tableau de bord">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="9" rx="1" />
+              <rect x="14" y="3" width="7" height="5" rx="1" />
+              <rect x="14" y="12" width="7" height="9" rx="1" />
+              <rect x="3" y="16" width="7" height="5" rx="1" />
+            </svg>
+          </Link>
+        )}
+        {user && (
+          <Link className="icon-btn" to="/mon-espace" aria-label="Mon espace auteur" title="Mon espace">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
+            </svg>
+          </Link>
+        )}
         <button className="icon-btn" aria-label="Ouvrir le panier" onClick={openCart}>
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
             <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" />

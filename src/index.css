@@ -504,6 +504,50 @@ section{ position:relative; }
 @media (max-width:900px){ .team-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .team-grid{ grid-template-columns:1fr; max-width:320px; margin-left:auto; margin-right:auto; } }
 
+/* ---------- Espace auteur & tableau de bord de l'équipe ---------- */
+.ms-who{ color:var(--ink-soft); font-size:0.9rem; margin-top:14px; }
+.ms-who .link-btn{ color:var(--accent-strong); opacity:1; }
+.ms-empty{ margin-top:28px; padding:28px; background:var(--surface); border:1px solid var(--line); }
+.ms-list{ display:flex; flex-direction:column; gap:16px; margin-top:26px; }
+.ms-card{ background:var(--surface); border:1px solid var(--line); padding:20px 22px; }
+.ms-card-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+.ms-card h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.12rem; line-height:1.28; }
+.ms-meta{ color:var(--ink-soft); font-size:0.82rem; margin-top:5px; line-height:1.5; word-break:break-word; }
+.ms-meta a{ color:inherit; }
+.ms-status-text{ color:var(--ink-soft); font-size:0.92rem; margin:14px 0 10px; line-height:1.55; }
+.ms-card .link-btn{ color:var(--accent-strong); opacity:1; font-size:0.88rem; }
+.ms-details{ margin-top:12px; }
+.ms-details summary{ cursor:pointer; font-size:0.85rem; font-weight:600; color:var(--accent-strong); }
+.ms-details p{ color:var(--ink-soft); font-size:0.9rem; line-height:1.6; margin-top:8px; white-space:pre-wrap; }
+.ms-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:16px; }
+.ms-status-select{ display:flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-soft); }
+.ms-status-select select{
+  background:var(--surface); border:1px solid var(--line); color:var(--ink);
+  padding:8px 10px; font-family:"Karla",sans-serif; font-size:16px; text-transform:none; letter-spacing:0; font-weight:500;
+}
+
+.status-badge{
+  flex:none; font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; padding:5px 10px;
+  border:1px solid currentColor; border-radius:999px; white-space:nowrap;
+}
+.status-badge.s-nouveau{ color:#B5541A; background:color-mix(in srgb, #F0A63F 16%, transparent); }
+.status-badge.s-en-lecture{ color:#2F6FB0; background:color-mix(in srgb, #2F6FB0 12%, transparent); }
+.status-badge.s-accepté{ color:#2E8B57; background:color-mix(in srgb, #2E8B57 13%, transparent); }
+.status-badge.s-refusé{ color:#8A6A5E; background:color-mix(in srgb, #8A6A5E 13%, transparent); }
+
+.staff-filters{ display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+.chip-btn{
+  background:none; border:1px solid var(--line); color:var(--ink); cursor:pointer;
+  font-family:"Karla",sans-serif; font-size:0.84rem; font-weight:600; padding:8px 14px;
+}
+.chip-btn .count{ color:var(--accent-strong); font-weight:700; margin-left:4px; }
+.chip-btn.is-active{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+.chip-btn.is-active .count{ color:inherit; }
+@media (max-width:560px){
+  .ms-card-head{ flex-direction:column; }
+  .ms-card{ padding:18px; }
+}
+
 /* ---------- Contact ---------- */
 .contact{
   background:

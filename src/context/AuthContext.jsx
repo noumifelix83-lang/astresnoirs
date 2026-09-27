@@ -7,6 +7,7 @@ const AFTER_LOGIN_KEY = "astres-noirs-after-login";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(isSupabaseConfigured);
+  const [isStaff, setIsStaff] = useState(false);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -45,6 +46,27 @@ export function AuthProvider({ children }) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  /* Membre de l'équipe éditoriale ? La réponse vient de la base (fonction is_staff,
+     voir supabase/02-equipe-editoriale.sql). Elle ne sert qu'à afficher le lien du
+     tableau de bord : la vraie protection est assurée côté base par les règles RLS. */
+  useEffect(() => {
+    if (!isSupabaseConfigured || !user) {
+      setIsStaff(false);
+      return;
+    }
+    let cancelled = false;
+    Promise.resolve(supabase.rpc("is_staff"))
+      .then(({ data, error }) => {
+        if (!cancelled) setIsStaff(!error && data === true);
+      })
+      .catch(() => {
+        if (!cancelled) setIsStaff(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id]);
+
   async function signInWithGoogle() {
     if (!isSupabaseConfigured) return;
     try {
@@ -63,7 +85,7 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
   }
 
-  const value = { user, loading, signInWithGoogle, signOut, isSupabaseConfigured };
+  const value = { user, loading, isStaff, signInWithGoogle, signOut, isSupabaseConfigured };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

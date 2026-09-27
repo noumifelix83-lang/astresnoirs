@@ -9,6 +9,8 @@ import StructuredData from "./components/StructuredData.jsx";
 import Home from "./pages/Home.jsx";
 import ActualitesPage from "./pages/ActualitesPage.jsx";
 import ActualiteDetail from "./pages/ActualiteDetail.jsx";
+import MonEspacePage from "./pages/MonEspacePage.jsx";
+import TableauDeBordPage from "./pages/TableauDeBordPage.jsx";
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/actualites" element={<ActualitesPage />} />
           <Route path="/actualites/:id" element={<ActualiteDetail />} />
+          <Route path="/mon-espace" element={<MonEspacePage />} />
+          <Route path="/tableau-de-bord" element={<TableauDeBordPage />} />
         </Routes>
         <Footer />
         <CartDrawer />
