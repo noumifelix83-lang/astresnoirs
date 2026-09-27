@@ -1,7 +1,7 @@
 import React from "react";
 import { books } from "../data/books.js";
 
-const SITE_URL = "https://www.astresnoirs.com/";
+const SITE_URL = "https://www.astresnoirs.net/";
 
 /**
  * Données structurées Schema.org (JSON-LD), invisibles à l'écran mais lues par Google :

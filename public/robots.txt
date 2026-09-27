@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.astresnoirs.com/sitemap.xml
+Sitemap: https://www.astresnoirs.net/sitemap.xml
