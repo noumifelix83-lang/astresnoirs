@@ -31,9 +31,14 @@ export function AuthProvider({ children }) {
         } catch {
           /* stockage indisponible : on reste simplement en haut de page */
         }
-        if (target) {
-          setTimeout(() => document.getElementById(target)?.scrollIntoView(), 350);
-        }
+        setTimeout(() => {
+          if (target) document.getElementById(target)?.scrollIntoView();
+          /* Supabase efface les jetons de l'adresse en laissant un « # » orphelin :
+             on le retire une fois la lecture de la session terminée. */
+          if (window.location.href.endsWith("#")) {
+            window.history.replaceState(null, "", window.location.pathname + window.location.search);
+          }
+        }, 350);
       }
     });
 
