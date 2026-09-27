@@ -22,6 +22,9 @@ export default function Home() {
      notamment après une connexion Google, qui revient sur #auteurs. */
   useEffect(() => {
     if (!location.hash) return;
+    /* Retour de connexion Google : l'adresse contient les jetons de session.
+       On n'y touche pas, Supabase doit d'abord les lire (et les effacera). */
+    if (/access_token=|error_description=|refresh_token=/.test(location.hash)) return;
     const id = location.hash.slice(1);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView();
