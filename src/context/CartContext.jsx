@@ -1,26 +1,32 @@
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { books } from "../data/books.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 const CartContext = createContext(null);
 
 const STORAGE_KEY = "astres-noirs-cart";
 const WHATSAPP_NUMBER = "237679635690";
 
+const WHATSAPP_TEXT = {
+  fr: {
+    kindPrefix: "Livre — ",
+    inquire: (label) => `Bonjour Astres Noirs, je souhaite connaître le prix et la disponibilité de « ${label} ».`,
+    orderIntro: "Bonjour Astres Noirs, je souhaite commander :",
+    total: "Total",
+    orderOutro: "Merci de me confirmer la disponibilité et les modalités de livraison.",
+  },
+  en: {
+    kindPrefix: "Book — ",
+    inquire: (label) => `Hello Astres Noirs, I'd like to know the price and availability of “${label}”.`,
+    orderIntro: "Hello Astres Noirs, I'd like to order:",
+    total: "Total",
+    orderOutro: "Please confirm availability and delivery details.",
+  },
+};
+
 function fmt(n) {
   return n.toLocaleString("fr-FR") + " FCFA";
 }
-
-const catalog = {};
-books.forEach((b) => {
-  if (b.forSale && b.priceKnown) {
-    catalog[b.id] = {
-      name: b.title + (b.subtitle ? " : " + b.subtitle : ""),
-      kind: "Livre — " + b.author,
-      price: b.price,
-      img: b.img,
-    };
-  }
-});
 
 function readInitialCart() {
   try {
@@ -34,6 +40,23 @@ function readInitialCart() {
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(readInitialCart);
   const [isOpen, setIsOpen] = useState(false);
+  const { lang, pick } = useLang();
+  const text = WHATSAPP_TEXT[lang] || WHATSAPP_TEXT.fr;
+
+  const catalog = useMemo(() => {
+    const c = {};
+    books.forEach((b) => {
+      if (b.forSale && b.priceKnown) {
+        c[b.id] = {
+          name: b.title + (b.subtitle ? " : " + pick(b.subtitle) : ""),
+          kind: text.kindPrefix + b.author,
+          price: b.price,
+          img: b.img,
+        };
+      }
+    });
+    return c;
+  }, [lang, pick, text]);
 
   useEffect(() => {
     try {
@@ -69,19 +92,22 @@ export function CartProvider({ children }) {
 
   const clearCart = useCallback(() => setCart({}), []);
 
-  const inquire = useCallback((bookId) => {
-    const bk = books.find((b) => b.id === bookId);
-    if (!bk) return;
-    const label = bk.title + (bk.subtitle ? " : " + bk.subtitle : "");
-    const msg = `Bonjour Astres Noirs, je souhaite connaître le prix et la disponibilité de « ${label} ».`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
-  }, []);
+  const inquire = useCallback(
+    (bookId) => {
+      const bk = books.find((b) => b.id === bookId);
+      if (!bk) return;
+      const label = bk.title + (bk.subtitle ? " : " + pick(bk.subtitle) : "");
+      const msg = text.inquire(label);
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+    },
+    [pick, text]
+  );
 
   const lines = useMemo(() => {
     return Object.keys(cart)
       .filter((id) => cart[id] > 0 && catalog[id])
       .map((id) => ({ id, qty: cart[id], ...catalog[id] }));
-  }, [cart]);
+  }, [cart, catalog]);
 
   const subtotal = useMemo(() => lines.reduce((sum, l) => sum + l.price * l.qty, 0), [lines]);
   const count = useMemo(() => lines.reduce((sum, l) => sum + l.qty, 0), [lines]);
@@ -89,14 +115,9 @@ export function CartProvider({ children }) {
   const checkoutUrl = useMemo(() => {
     if (lines.length === 0) return null;
     const itemLines = lines.map((l) => `• ${l.name} x${l.qty} — ${fmt(l.price * l.qty)}`);
-    const msg =
-      "Bonjour Astres Noirs, je souhaite commander :\n" +
-      itemLines.join("\n") +
-      "\n\nTotal : " +
-      fmt(subtotal) +
-      "\n\nMerci de me confirmer la disponibilité et les modalités de livraison.";
+    const msg = text.orderIntro + "\n" + itemLines.join("\n") + "\n\n" + text.total + " : " + fmt(subtotal) + "\n\n" + text.orderOutro;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  }, [lines, subtotal]);
+  }, [lines, subtotal, text]);
 
   const value = {
     lines,

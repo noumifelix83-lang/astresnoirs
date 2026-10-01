@@ -4,20 +4,14 @@ import { useReveal } from "../hooks/useReveal.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { supabase } from "../lib/supabaseClient.js";
 import { equipe } from "../data/equipe.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
-const STEPS = [
-  { title: "Connexion", text: "Connectez-vous avec votre compte Google — cela nous permet de vous identifier et de suivre votre dossier." },
-  { title: "Envoi du manuscrit", text: "Roman, poésie, essai, théâtre, conte ou fable — envoyez votre texte complet via le formulaire." },
-  { title: "Comité de lecture", text: "Cinq relecteurs et le comité éditorial étudient votre texte avec soin." },
-  { title: "Accompagnement éditorial", text: "Relecture, mise en page, direction artistique et diffusion, main dans la main avec vous." },
-];
-
-const GENRES = ["Roman", "Poésie", "Essai", "Théâtre", "Contes", "Fables", "Autre"];
 const MAX_FILE_MB = 20;
 const STORAGE_BUCKET = "manuscripts";
 
 function TeamCard({ member }) {
   const [ref, cls] = useReveal();
+  const { pick } = useLang();
   return (
     <div ref={ref} className={"team-card " + cls}>
       <div className="team-photo" style={{ backgroundImage: `url(${member.photo})` }} />
@@ -25,7 +19,7 @@ function TeamCard({ member }) {
         <h3>{member.name}</h3>
         {member.roles.map((r, i) => (
           <p className="team-role" key={i}>
-            {r}
+            {pick(r)}
           </p>
         ))}
       </div>
@@ -37,14 +31,32 @@ export default function Auteurs() {
   const [refA, classA] = useReveal();
   const [refB, classB] = useReveal();
   const { user, loading, signInWithGoogle, signOut, isSupabaseConfigured } = useAuth();
+  const { t } = useLang();
 
   const [status, setStatus] = useState("idle"); // idle | sending | done | error
   const [fileError, setFileError] = useState("");
 
+  const STEPS = [
+    { title: t("auteurs.step1Title"), text: t("auteurs.step1Text") },
+    { title: t("auteurs.step2Title"), text: t("auteurs.step2Text") },
+    { title: t("auteurs.step3Title"), text: t("auteurs.step3Text") },
+    { title: t("auteurs.step4Title"), text: t("auteurs.step4Text") },
+  ];
+
+  const GENRES = [
+    t("auteurs.genreRoman"),
+    t("auteurs.genrePoesie"),
+    t("auteurs.genreEssai"),
+    t("auteurs.genreTheatre"),
+    t("auteurs.genreContes"),
+    t("auteurs.genreFables"),
+    t("auteurs.genreAutre"),
+  ];
+
   function handleFileChange(e) {
     const f = e.target.files[0];
     if (f && f.size > MAX_FILE_MB * 1024 * 1024) {
-      setFileError(`Ce fichier dépasse ${MAX_FILE_MB} Mo. Merci de le compresser avant l'envoi.`);
+      setFileError(t("auteurs.fileTooLarge").replace("{max}", MAX_FILE_MB));
       e.target.value = "";
     } else {
       setFileError("");
@@ -123,8 +135,8 @@ export default function Auteurs() {
       <div className="wrap">
         <div className="auteurs-grid">
           <div ref={refA} className={classA}>
-            <span className="eyebrow">Vous êtes auteur ?</span>
-            <h2 style={{ marginTop: 14 }}>Publier chez Astres Noirs, c'est entrer dans la cour des grands.</h2>
+            <span className="eyebrow">{t("auteurs.eyebrow")}</span>
+            <h2 style={{ marginTop: 14 }}>{t("auteurs.title")}</h2>
             <ol className="step-list">
               {STEPS.map((s, i) => (
                 <li key={s.title}>
@@ -139,24 +151,20 @@ export default function Auteurs() {
           </div>
 
           <div ref={refB} className={"auteurs-card " + classB}>
-            <span className="eyebrow">Soumettre un manuscrit</span>
-            <h3 style={{ marginTop: 12 }}>Prêt à nous confier votre texte ?</h3>
+            <span className="eyebrow">{t("auteurs.submitEyebrow")}</span>
+            <h3 style={{ marginTop: 12 }}>{t("auteurs.submitTitle")}</h3>
 
             {!isSupabaseConfigured && (
               <p style={{ marginTop: 14 }}>
-                La connexion auteur est en cours de mise en place. Revenez très bientôt, ou écrivez-nous directement
-                à <a href="mailto:aastresnoirs@gmail.com">aastresnoirs@gmail.com</a>.
+                {t("auteurs.notConfigured")} <a href="mailto:aastresnoirs@gmail.com">aastresnoirs@gmail.com</a>.
               </p>
             )}
 
-            {isSupabaseConfigured && loading && <p style={{ marginTop: 14 }}>Chargement…</p>}
+            {isSupabaseConfigured && loading && <p style={{ marginTop: 14 }}>{t("auteurs.loading")}</p>}
 
             {isSupabaseConfigured && !loading && !user && (
               <>
-                <p style={{ marginTop: 14 }}>
-                  Connectez-vous avec votre compte Google pour soumettre votre manuscrit. Cela nous permet de vous
-                  identifier et de suivre votre dossier au fil de l'évaluation éditoriale.
-                </p>
+                <p style={{ marginTop: 14 }}>{t("auteurs.loginPrompt")}</p>
                 <button type="button" className="btn btn-primary plate google-btn" onClick={signInWithGoogle} style={{ marginTop: 22 }}>
                   <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
                     <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62Z" />
@@ -164,7 +172,7 @@ export default function Auteurs() {
                     <path fill="#FBBC05" d="M3.95 10.7a5.4 5.4 0 0 1 0-3.4V4.97H.95a9 9 0 0 0 0 8.06l3-2.33Z" />
                     <path fill="#EA4335" d="M9 3.58c1.32 0 2.51.46 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .95 4.97l3 2.33C4.66 5.17 6.65 3.58 9 3.58Z" />
                   </svg>
-                  Se connecter avec Google
+                  {t("auteurs.googleSignIn")}
                 </button>
               </>
             )}
@@ -172,27 +180,27 @@ export default function Auteurs() {
             {isSupabaseConfigured && !loading && user && (
               <>
                 <p style={{ marginTop: 14 }}>
-                  Connecté en tant que <strong>{user.email}</strong> ·{" "}
+                  {t("auteurs.connectedAs")} <strong>{user.email}</strong> ·{" "}
                   <button type="button" className="link-btn" onClick={signOut}>
-                    se déconnecter
+                    {t("auteurs.signOut")}
                   </button>
                 </p>
                 <p style={{ marginTop: 6 }}>
                   <Link to="/mon-espace" className="link-btn">
-                    Suivre l'avancement de mes manuscrits →
+                    {t("auteurs.trackLink")}
                   </Link>
                 </p>
                 <form onSubmit={handleSubmit}>
                   <div className="ms-fields">
                     <div className="field">
-                      <label htmlFor="ms-title">Titre de l'ouvrage</label>
+                      <label htmlFor="ms-title">{t("auteurs.fieldTitle")}</label>
                       <input id="ms-title" name="Titre de l'ouvrage" required />
                     </div>
                     <div className="field">
-                      <label htmlFor="ms-genre">Genre</label>
+                      <label htmlFor="ms-genre">{t("auteurs.fieldGenre")}</label>
                       <select id="ms-genre" name="Genre" required defaultValue="">
                         <option value="" disabled>
-                          Choisir…
+                          {t("auteurs.fieldGenreChoose")}
                         </option>
                         {GENRES.map((g) => (
                           <option key={g}>{g}</option>
@@ -200,16 +208,18 @@ export default function Auteurs() {
                       </select>
                     </div>
                     <div className="field">
-                      <label htmlFor="ms-summary">Résumé &amp; présentation de l'auteur</label>
+                      <label htmlFor="ms-summary">{t("auteurs.fieldSummary")}</label>
                       <textarea
                         id="ms-summary"
                         name="message"
                         required
-                        placeholder="Résumé de l'œuvre, et quelques lignes sur vous…"
+                        placeholder={t("auteurs.fieldSummaryPlaceholder")}
                       />
                     </div>
                     <div className="field">
-                      <label htmlFor="ms-file">Manuscrit ({MAX_FILE_MB} Mo max — PDF ou Word)</label>
+                      <label htmlFor="ms-file">
+                        {t("auteurs.fieldFile")} ({MAX_FILE_MB} {t("auteurs.fieldFileHint")})
+                      </label>
                       <input
                         id="ms-file"
                         name="attachment"
@@ -228,19 +238,13 @@ export default function Auteurs() {
                     disabled={status === "sending" || !!fileError}
                     style={{ marginTop: 22 }}
                   >
-                    {status === "sending" ? "Envoi en cours…" : "Envoyer le manuscrit"}
+                    {status === "sending" ? t("auteurs.sending") : t("auteurs.submit")}
                   </button>
 
-                  {status === "done" && (
-                    <p className="form-note form-note-ok">
-                      Merci ! Votre manuscrit a bien été transmis à notre comité éditorial, qui reviendra vers vous
-                      rapidement.
-                    </p>
-                  )}
+                  {status === "done" && <p className="form-note form-note-ok">{t("auteurs.successMsg")}</p>}
                   {status === "error" && (
                     <p className="form-note form-note-error">
-                      Une erreur est survenue lors de l'envoi. Réessayez, ou écrivez-nous directement à{" "}
-                      <a href="mailto:aastresnoirs@gmail.com">aastresnoirs@gmail.com</a>.
+                      {t("auteurs.errorMsg")} <a href="mailto:aastresnoirs@gmail.com">aastresnoirs@gmail.com</a>.
                     </p>
                   )}
                 </form>
@@ -250,8 +254,8 @@ export default function Auteurs() {
         </div>
 
         <div className="auteurs-team">
-          <span className="eyebrow">L'équipe</span>
-          <h3 style={{ marginTop: 10 }}>Les visages qui liront votre manuscrit.</h3>
+          <span className="eyebrow">{t("auteurs.teamEyebrow")}</span>
+          <h3 style={{ marginTop: 10 }}>{t("auteurs.teamTitle")}</h3>
           <div className="team-grid">
             {equipe.map((m) => (
               <TeamCard member={m} key={m.id} />

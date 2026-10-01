@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { supabase } from "../lib/supabaseClient.js";
 import { statusMeta, formatDate, openManuscriptFile } from "../lib/manuscriptStatus.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function MonEspacePage() {
   const { user, loading, isStaff, signInWithGoogle, signOut, isSupabaseConfigured } = useAuth();
+  const { t, lang } = useLang();
   const [items, setItems] = useState(null); // null = chargement
   const [error, setError] = useState("");
   const [fileError, setFileError] = useState("");
@@ -28,7 +30,7 @@ export default function MonEspacePage() {
       .order("created_at", { ascending: false })
       .then(({ data, error: err }) => {
         if (cancelled) return;
-        if (err) setError("Impossible de charger vos manuscrits pour le moment.");
+        if (err) setError(t("monEspace.loadError"));
         else setItems(data || []);
       });
     return () => {
@@ -39,23 +41,23 @@ export default function MonEspacePage() {
   async function open(path) {
     setFileError("");
     const ok = await openManuscriptFile(path);
-    if (!ok) setFileError("Impossible d'ouvrir le fichier pour le moment. Réessayez dans un instant.");
+    if (!ok) setFileError(t("monEspace.fileOpenError"));
   }
 
   return (
     <main className="actualites-page section-pad">
       <div className="wrap wrap-narrow">
-        <span className="eyebrow">Espace auteur</span>
-        <h1 style={{ marginTop: 10 }}>Mes manuscrits</h1>
+        <span className="eyebrow">{t("monEspace.eyebrow")}</span>
+        <h1 style={{ marginTop: 10 }}>{t("monEspace.title")}</h1>
 
-        {!isSupabaseConfigured && <p className="lede">L'espace auteur sera bientôt disponible.</p>}
-        {isSupabaseConfigured && loading && <p className="lede">Chargement…</p>}
+        {!isSupabaseConfigured && <p className="lede">{t("monEspace.comingSoon")}</p>}
+        {isSupabaseConfigured && loading && <p className="lede">{t("monEspace.loading")}</p>}
 
         {isSupabaseConfigured && !loading && !user && (
           <>
-            <p className="lede">Connectez-vous avec votre compte Google pour suivre l'avancement de vos manuscrits.</p>
+            <p className="lede">{t("monEspace.loginPrompt")}</p>
             <button type="button" className="btn btn-primary plate google-btn" onClick={signInWithGoogle} style={{ marginTop: 22 }}>
-              Se connecter avec Google
+              {t("monEspace.googleSignIn")}
             </button>
           </>
         )}
@@ -63,27 +65,27 @@ export default function MonEspacePage() {
         {isSupabaseConfigured && !loading && user && (
           <>
             <p className="ms-who">
-              Connecté en tant que <strong>{user.email}</strong> ·{" "}
+              {t("monEspace.connectedAs")} <strong>{user.email}</strong> ·{" "}
               <button type="button" className="link-btn" onClick={signOut}>
-                se déconnecter
+                {t("monEspace.signOut")}
               </button>
               {isStaff && (
                 <>
                   {" "}
-                  · <Link to="/tableau-de-bord" className="link-btn">Tableau de bord de l'équipe</Link>
+                  · <Link to="/tableau-de-bord" className="link-btn">{t("monEspace.dashboardLink")}</Link>
                 </>
               )}
             </p>
 
             {error && <p className="form-note form-note-error">{error}</p>}
             {fileError && <p className="form-note form-note-error">{fileError}</p>}
-            {!error && items === null && <p className="lede">Chargement de vos manuscrits…</p>}
+            {!error && items === null && <p className="lede">{t("monEspace.loadingList")}</p>}
 
             {items && items.length === 0 && (
               <div className="ms-empty">
-                <p>Vous n'avez pas encore soumis de manuscrit.</p>
+                <p>{t("monEspace.emptyText")}</p>
                 <Link to="/#auteurs" className="btn btn-primary plate" style={{ marginTop: 16 }}>
-                  Soumettre un manuscrit
+                  {t("monEspace.submitLink")}
                 </Link>
               </div>
             )}
@@ -91,21 +93,21 @@ export default function MonEspacePage() {
             {items && items.length > 0 && (
               <div className="ms-list">
                 {items.map((m) => {
-                  const st = statusMeta(m.status);
+                  const st = statusMeta(m.status, lang);
                   return (
                     <article className="ms-card" key={m.id}>
                       <div className="ms-card-head">
                         <div>
                           <h3>{m.title}</h3>
                           <p className="ms-meta">
-                            {m.genre} · envoyé le {formatDate(m.created_at)}
+                            {m.genre} · {t("monEspace.sentOn")} {formatDate(m.created_at, lang)}
                           </p>
                         </div>
                         <span className={"status-badge s-" + m.status.replace(/\s/g, "-")}>{st.label}</span>
                       </div>
                       <p className="ms-status-text">{st.authorText}</p>
                       <button type="button" className="link-btn" onClick={() => open(m.file_path)}>
-                        Ouvrir mon fichier
+                        {t("monEspace.openFile")}
                       </button>
                     </article>
                   );

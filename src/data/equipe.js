@@ -10,13 +10,16 @@ export const equipe = [
   {
     id: "jean-jacques-foko",
     name: "Jean Jacques Foko",
-    roles: ["Journaliste — critique littéraire", "Responsable de la Communication et des relations publiques"],
+    roles: [
+      { fr: "Journaliste — critique littéraire", en: "Journalist — literary critic" },
+      { fr: "Responsable de la Communication et des relations publiques", en: "Head of Communications & Public Relations" },
+    ],
     photo: jeanJacquesFoko,
   },
   {
     id: "marcel-ngono",
     name: "Marcel Ngono",
-    roles: ["Secrétaire"],
+    roles: [{ fr: "Secrétaire", en: "Secretary" }],
     photo: marcelNgono,
   },
 ];

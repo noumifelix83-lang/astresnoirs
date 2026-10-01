@@ -2,8 +2,10 @@ import React from "react";
 import HeroCanvas from "./HeroCanvas.jsx";
 import heroBg from "../assets/covers/hero-lampe-afrique.webp";
 import logoIcon from "../assets/logo-icon.png";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Hero() {
+  const { t } = useLang();
   return (
     <header className="hero" id="hero">
       <div className="hero-slideshow" aria-hidden="true">
@@ -15,31 +17,27 @@ export default function Hero() {
         <div className="hero-badge">
           <img src={logoIcon} alt="Astres Noirs" />
         </div>
-        <div className="hero-eyebrow">Édition, impression &amp; gestion du livre — Yaoundé, Cameroun</div>
+        <div className="hero-eyebrow">{t("hero.eyebrow")}</div>
         <h1>
-          Chaque livre a
+          {t("hero.titleLine1")}
           <br />
-          son astre.
+          {t("hero.titleLine2")}
         </h1>
         <p className="hero-slogan">
-          Notre devise — « Qui Lira <em>Vivra</em> »
+          {t("hero.sloganLabel")} — « {t("hero.sloganWord")} <em>{t("hero.sloganEm")}</em> »
         </p>
-        <p className="hero-lede">
-          Les Éditions Astres Noirs accompagnent romanciers, poètes, essayistes, dramaturges, conteurs et fabulistes,
-          de l'écriture à l'impression jusqu'aux mains du lecteur — une maison pensée pour rayonner du Cameroun à
-          l'Afrique, et au-delà.
-        </p>
+        <p className="hero-lede">{t("hero.lede")}</p>
         <div className="hero-cta">
           <a href="#catalogue" className="btn btn-primary plate">
-            Découvrir le catalogue
+            {t("hero.ctaCatalogue")}
           </a>
           <a href="#auteurs" className="btn btn-ghost">
-            Publier un manuscrit
+            {t("hero.ctaPublish")}
           </a>
         </div>
       </div>
       <div className="scroll-cue">
-        <span className="line" /> Faire défiler
+        <span className="line" /> {t("hero.scrollCue")}
       </div>
     </header>
   );

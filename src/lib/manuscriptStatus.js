@@ -1,35 +1,21 @@
 import { supabase } from "./supabaseClient.js";
+import { dict } from "../i18n/dictionary.js";
 
 /** Les quatre étapes du parcours d'un manuscrit (valeurs stockées en base, voir supabase/02-equipe-editoriale.sql). */
-export const STATUSES = [
-  {
-    value: "nouveau",
-    label: "Reçu",
-    authorText: "Votre manuscrit nous est bien parvenu. Il va être transmis au comité de lecture.",
-  },
-  {
-    value: "en lecture",
-    label: "En lecture",
-    authorText: "Le comité de lecture étudie actuellement votre texte.",
-  },
-  {
-    value: "accepté",
-    label: "Accepté",
-    authorText: "Félicitations ! Notre équipe va vous contacter pour la suite.",
-  },
-  {
-    value: "refusé",
-    label: "Non retenu",
-    authorText: "Le comité n'a pas retenu votre manuscrit pour le moment. Merci de votre confiance.",
-  },
-];
+export const STATUSES = Object.keys(dict.statuses).map((value) => ({ value }));
 
-export function statusMeta(value) {
-  return STATUSES.find((s) => s.value === value) || STATUSES[0];
+export function statusMeta(value, lang = "fr") {
+  const entry = dict.statuses[value] || dict.statuses.nouveau;
+  return {
+    value,
+    label: entry.label[lang] || entry.label.fr,
+    authorText: entry.authorText[lang] || entry.authorText.fr,
+  };
 }
 
-export function formatDate(iso) {
-  return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+export function formatDate(iso, lang = "fr") {
+  const locale = lang === "en" ? "en-US" : "fr-FR";
+  return new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
 }
 
 /**

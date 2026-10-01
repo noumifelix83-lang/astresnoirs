@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { LanguageProvider } from "./i18n/LanguageContext.jsx";
 import Nav from "./components/Nav.jsx";
 import Footer from "./components/Footer.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
@@ -14,20 +15,22 @@ import TableauDeBordPage from "./pages/TableauDeBordPage.jsx";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <StructuredData />
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/actualites" element={<ActualitesPage />} />
-          <Route path="/actualites/:id" element={<ActualiteDetail />} />
-          <Route path="/mon-espace" element={<MonEspacePage />} />
-          <Route path="/tableau-de-bord" element={<TableauDeBordPage />} />
-        </Routes>
-        <Footer />
-        <CartDrawer />
-      </CartProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <CartProvider>
+          <StructuredData />
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/actualites" element={<ActualitesPage />} />
+            <Route path="/actualites/:id" element={<ActualiteDetail />} />
+            <Route path="/mon-espace" element={<MonEspacePage />} />
+            <Route path="/tableau-de-bord" element={<TableauDeBordPage />} />
+          </Routes>
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }

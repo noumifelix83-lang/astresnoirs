@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logoIcon from "../assets/logo-icon.png";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Footer() {
+  const { t, lang } = useLang();
+  const legalSuffix = lang === "en" ? "-en" : "";
   return (
     <footer>
       <div className="wrap">
@@ -14,20 +17,20 @@ export default function Footer() {
               </span>
               <span className="brand-word">Astres Noirs</span>
             </div>
-            <p>Édition, impression &amp; gestion du livre — de Yaoundé à l'Afrique. Qui Lira Vivra.</p>
+            <p>{t("footer.tagline")}</p>
           </div>
           <div>
-            <h5>Explorer</h5>
+            <h5>{t("footer.exploreHeading")}</h5>
             <ul>
-              <li><Link to="/#about">La maison</Link></li>
-              <li><Link to="/#catalogue">Catalogue</Link></li>
-              <li><Link to="/#boutique">Boutique</Link></li>
-              <li><Link to="/#auteurs">Auteurs</Link></li>
-              <li><Link to="/actualites">Actualités</Link></li>
+              <li><Link to="/#about">{t("nav.about")}</Link></li>
+              <li><Link to="/#catalogue">{t("nav.catalogue")}</Link></li>
+              <li><Link to="/#boutique">{t("nav.boutique")}</Link></li>
+              <li><Link to="/#auteurs">{t("nav.auteurs")}</Link></li>
+              <li><Link to="/actualites">{t("nav.actualites")}</Link></li>
             </ul>
           </div>
           <div>
-            <h5>Collections</h5>
+            <h5>{t("footer.collectionsHeading")}</h5>
             <ul>
               <li><Link to="/#collections">Sapiens</Link></li>
               <li><Link to="/#collections">Calebasse</Link></li>
@@ -36,7 +39,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h5>Contact</h5>
+            <h5>{t("footer.contactHeading")}</h5>
             <ul>
               <li><a href="mailto:aastresnoirs@gmail.com">aastresnoirs@gmail.com</a></li>
               <li><a href="tel:+237696208132">696 208 132</a></li>
@@ -45,12 +48,12 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Éditions Astres Noirs. Tous droits réservés.</span>
+          <span>© 2026 Éditions Astres Noirs. {t("footer.rights")}</span>
           <span className="footer-legal">
-            <a href="/confidentialite.html">Confidentialité</a>
-            <a href="/conditions.html">Conditions d'utilisation</a>
+            <a href={`/confidentialite${legalSuffix}.html`}>{t("footer.privacy")}</a>
+            <a href={`/conditions${legalSuffix}.html`}>{t("footer.terms")}</a>
           </span>
-          <span>Yaoundé, Cameroun</span>
+          <span>{t("footer.location")}</span>
         </div>
       </div>
     </footer>

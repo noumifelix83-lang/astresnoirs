@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { supabase } from "../lib/supabaseClient.js";
 import { STATUSES, statusMeta, formatDate, openManuscriptFile } from "../lib/manuscriptStatus.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function TableauDeBordPage() {
   const { user, loading, isStaff, signInWithGoogle, isSupabaseConfigured } = useAuth();
+  const { t, lang } = useLang();
   const [items, setItems] = useState(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -27,7 +29,7 @@ export default function TableauDeBordPage() {
       .order("created_at", { ascending: false })
       .then(({ data, error: err }) => {
         if (cancelled) return;
-        if (err) setError("Impossible de charger les manuscrits.");
+        if (err) setError(t("tableauDeBord.loadError"));
         else setItems(data || []);
       });
     return () => {
@@ -56,94 +58,94 @@ export default function TableauDeBordPage() {
       .eq("id", id);
     if (err) {
       setItems(previous); // on annule si la base a refusé
-      setNotice("Le changement de statut n'a pas pu être enregistré.");
+      setNotice(t("tableauDeBord.statusUpdateError"));
     }
   }
 
   async function open(path) {
     setNotice("");
     const ok = await openManuscriptFile(path);
-    if (!ok) setNotice("Impossible d'ouvrir le fichier pour le moment.");
+    if (!ok) setNotice(t("tableauDeBord.fileOpenError"));
   }
 
   return (
     <main className="actualites-page section-pad">
       <div className="wrap">
-        <span className="eyebrow">Équipe éditoriale</span>
-        <h1 style={{ marginTop: 10 }}>Tableau de bord</h1>
+        <span className="eyebrow">{t("tableauDeBord.eyebrow")}</span>
+        <h1 style={{ marginTop: 10 }}>{t("tableauDeBord.title")}</h1>
 
-        {!isSupabaseConfigured && <p className="lede">Base de données non configurée.</p>}
-        {isSupabaseConfigured && loading && <p className="lede">Chargement…</p>}
+        {!isSupabaseConfigured && <p className="lede">{t("tableauDeBord.notConfigured")}</p>}
+        {isSupabaseConfigured && loading && <p className="lede">{t("tableauDeBord.loading")}</p>}
 
         {isSupabaseConfigured && !loading && !user && (
           <>
-            <p className="lede">Espace réservé à l'équipe éditoriale. Connectez-vous avec votre compte Google.</p>
+            <p className="lede">{t("tableauDeBord.reservedPrompt")}</p>
             <button type="button" className="btn btn-primary plate google-btn" onClick={signInWithGoogle} style={{ marginTop: 22 }}>
-              Se connecter avec Google
+              {t("tableauDeBord.googleSignIn")}
             </button>
           </>
         )}
 
         {isSupabaseConfigured && !loading && user && !isStaff && (
-          <p className="lede">
-            Ce compte ({user.email}) n'a pas accès au tableau de bord. Si vous faites partie de l'équipe, demandez
-            qu'on ajoute votre adresse.
-          </p>
+          <p className="lede">{t("tableauDeBord.noAccess").replace("{email}", user.email)}</p>
         )}
 
         {isSupabaseConfigured && !loading && user && isStaff && (
           <>
-            <div className="staff-filters" role="tablist" aria-label="Filtrer par statut">
+            <div className="staff-filters" role="tablist" aria-label={t("tableauDeBord.filtersAria")}>
               <button type="button" className={"chip-btn" + (filter === "tous" ? " is-active" : "")} onClick={() => setFilter("tous")}>
-                Tous <span className="count">{counts.tous}</span>
+                {t("tableauDeBord.filterAll")} <span className="count">{counts.tous}</span>
               </button>
-              {STATUSES.map((s) => (
-                <button
-                  type="button"
-                  key={s.value}
-                  className={"chip-btn" + (filter === s.value ? " is-active" : "")}
-                  onClick={() => setFilter(s.value)}
-                >
-                  {s.label} <span className="count">{counts[s.value]}</span>
-                </button>
-              ))}
+              {STATUSES.map((s) => {
+                const meta = statusMeta(s.value, lang);
+                return (
+                  <button
+                    type="button"
+                    key={s.value}
+                    className={"chip-btn" + (filter === s.value ? " is-active" : "")}
+                    onClick={() => setFilter(s.value)}
+                  >
+                    {meta.label} <span className="count">{counts[s.value]}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {error && <p className="form-note form-note-error">{error}</p>}
             {notice && <p className="form-note form-note-error">{notice}</p>}
-            {!error && items === null && <p className="lede">Chargement des manuscrits…</p>}
-            {items && visible.length === 0 && <p className="lede">Aucun manuscrit dans cette catégorie.</p>}
+            {!error && items === null && <p className="lede">{t("tableauDeBord.loadingList")}</p>}
+            {items && visible.length === 0 && <p className="lede">{t("tableauDeBord.emptyCategory")}</p>}
 
             <div className="ms-list">
               {visible.map((m) => {
-                const st = statusMeta(m.status);
+                const st = statusMeta(m.status, lang);
                 return (
                   <article className="ms-card" key={m.id}>
                     <div className="ms-card-head">
                       <div>
                         <h3>{m.title}</h3>
                         <p className="ms-meta">
-                          {m.name} · <a href={`mailto:${m.email}`}>{m.email}</a> · {m.genre} · {formatDate(m.created_at)}
+                          {m.name} · <a href={`mailto:${m.email}`}>{m.email}</a> · {m.genre} · {formatDate(m.created_at, lang)}
                         </p>
                       </div>
                       <span className={"status-badge s-" + m.status.replace(/\s/g, "-")}>{st.label}</span>
                     </div>
 
                     <details className="ms-details">
-                      <summary>Résumé et présentation de l'auteur</summary>
+                      <summary>{t("tableauDeBord.summaryDetails")}</summary>
                       <p>{m.message}</p>
                     </details>
 
                     <div className="ms-actions">
                       <button type="button" className="btn btn-ghost btn-sm" onClick={() => open(m.file_path)}>
-                        Ouvrir le fichier
+                        {t("tableauDeBord.openFile")}
                       </button>
                       <label className="ms-status-select">
-                        Statut
+                        {t("tableauDeBord.statusLabel")}
                         <select value={m.status} onChange={(e) => changeStatus(m.id, e.target.value)}>
                           {STATUSES.map((s) => (
                             <option key={s.value} value={s.value}>
-                              {s.label}
+                              {statusMeta(s.value, lang).label}
                             </option>
                           ))}
                         </select>
@@ -157,7 +159,7 @@ export default function TableauDeBordPage() {
         )}
 
         <p className="ms-who" style={{ marginTop: 32 }}>
-          <Link to="/mon-espace" className="link-btn">← Mon espace auteur</Link>
+          <Link to="/mon-espace" className="link-btn">{t("tableauDeBord.backLink")}</Link>
         </p>
       </div>
     </main>

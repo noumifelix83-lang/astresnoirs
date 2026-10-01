@@ -3,16 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import logoIcon from "../assets/logo-icon.png";
 import { useCart } from "../context/CartContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
-
-const LINKS = [
-  { href: "/#about", label: "La maison" },
-  { href: "/#collections", label: "Collections" },
-  { href: "/#catalogue", label: "Catalogue" },
-  { href: "/#boutique", label: "Boutique" },
-  { href: "/#auteurs", label: "Auteurs" },
-  { href: "/actualites", label: "Actualités" },
-  { href: "/#contact", label: "Contact" },
-];
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,11 +11,22 @@ export default function Nav() {
   const { count, openCart } = useCart();
   const { user, isStaff } = useAuth();
   const { pathname } = useLocation();
+  const { t, toggleLang } = useLang();
   /* Seule la page d'accueil a une bannière sombre en tête de page : ailleurs,
      le fond est clair dès le premier pixel, donc la nav doit toujours être
      dans son état « scrolled » (icônes et texte foncés), sous peine d'être
      invisible (blanc sur fond clair). */
   const onHome = pathname === "/";
+
+  const LINKS = [
+    { href: "/#about", label: t("nav.about") },
+    { href: "/#collections", label: t("nav.collections") },
+    { href: "/#catalogue", label: t("nav.catalogue") },
+    { href: "/#boutique", label: t("nav.boutique") },
+    { href: "/#auteurs", label: t("nav.auteurs") },
+    { href: "/actualites", label: t("nav.actualites") },
+    { href: "/#contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => {
     if (!onHome) return;
@@ -41,8 +43,8 @@ export default function Nav() {
           <img src={logoIcon} alt="Astres Noirs" />
         </span>
         <span className="brand-word">
-          Astres Noirs
-          <small>Éditions</small>
+          {t("nav.brandWord")}
+          <small>{t("nav.brandSub")}</small>
         </span>
       </Link>
 
@@ -58,7 +60,7 @@ export default function Nav() {
 
       <div className="nav-right">
         {isStaff && (
-          <Link className="icon-btn" to="/tableau-de-bord" aria-label="Tableau de bord de l'équipe" title="Tableau de bord">
+          <Link className="icon-btn" to="/tableau-de-bord" aria-label={t("nav.dashboardAria")} title={t("nav.dashboardAria")}>
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               <rect x="3" y="3" width="7" height="9" rx="1" />
               <rect x="14" y="3" width="7" height="5" rx="1" />
@@ -68,14 +70,14 @@ export default function Nav() {
           </Link>
         )}
         {user && (
-          <Link className="icon-btn" to="/mon-espace" aria-label="Mon espace auteur" title="Mon espace">
+          <Link className="icon-btn" to="/mon-espace" aria-label={t("nav.monEspaceAria")} title={t("nav.monEspaceAria")}>
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               <circle cx="12" cy="8" r="4" />
               <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
             </svg>
           </Link>
         )}
-        <button className="icon-btn" aria-label="Ouvrir le panier" onClick={openCart}>
+        <button className="icon-btn" aria-label={t("nav.cartAria")} onClick={openCart}>
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
             <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" />
             <circle cx="10" cy="21" r="1.3" fill="currentColor" stroke="none" />
@@ -85,9 +87,12 @@ export default function Nav() {
             {count}
           </span>
         </button>
+        <button type="button" className="icon-btn lang-toggle" aria-label={t("nav.langToggleAria")} title={t("nav.langToggleAria")} onClick={toggleLang}>
+          {t("nav.langToggleLabel")}
+        </button>
         <button
           className="menu-toggle"
-          aria-label="Ouvrir le menu"
+          aria-label={t("nav.menuAria")}
           aria-expanded={menuOpen ? "true" : "false"}
           onClick={() => setMenuOpen((v) => !v)}
         >
