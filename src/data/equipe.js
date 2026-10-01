@@ -2,6 +2,7 @@ import marcelNgono from "../assets/team/marcel-ngono.webp";
 import jeanJacquesFoko from "../assets/team/jean-jacques-foko.webp";
 import tchuisseuLowe from "../assets/team/tchuisseu-lowe.webp";
 import felixNjandjaII from "../assets/team/felix-njandja-ii.webp";
+import stephaneTchatchoua from "../assets/team/stephane-tchatchoua.webp";
 
 /**
  * Équipe des Éditions Astres Noirs. La section "La maison" mentionne 11
@@ -35,5 +36,11 @@ export const equipe = [
     name: "Noumi Félix II Njandja",
     roles: [{ fr: "Webmaster — Responsable Maintenance Informatique", en: "Webmaster — IT Maintenance Manager" }],
     photo: felixNjandjaII,
+  },
+  {
+    id: "stephane-tchatchoua",
+    name: "Tchatchoua Nzouepet Stéphane",
+    roles: [{ fr: "Responsable Marketing", en: "Marketing Manager" }],
+    photo: stephaneTchatchoua,
   },
 ];
