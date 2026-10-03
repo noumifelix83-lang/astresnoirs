@@ -11,6 +11,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.astresnoirs.net/actualites/comment-envoyer-manuscrit-astres-noirs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.astresnoirs.net/actualites/capsule-six-publications-felix-njandja</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

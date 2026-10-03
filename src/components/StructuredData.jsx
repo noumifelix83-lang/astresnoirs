@@ -42,17 +42,20 @@ export default function StructuredData() {
   const bookItems = books
     .filter((b) => !!b.img)
     .map((b, i) => {
+      const subtitle = typeof b.subtitle === "object" ? b.subtitle.fr : b.subtitle;
+      const format = typeof b.format === "object" ? b.format.fr : b.format;
+      const desc = typeof b.desc === "object" ? b.desc.fr : b.desc;
       const entry = {
         "@type": "Book",
         position: i + 1,
-        name: b.title + (b.subtitle ? " : " + b.subtitle : ""),
+        name: b.title + (subtitle ? " : " + subtitle : ""),
         author: { "@type": "Person", name: b.author },
         genre: b.genre,
         isbn: b.isbn || undefined,
-        bookFormat: b.format === "Format Kindle" ? "https://schema.org/EBook" : "https://schema.org/Paperback",
+        bookFormat: format === "Format Kindle" ? "https://schema.org/EBook" : "https://schema.org/Paperback",
         publisher: { "@id": SITE_URL + "#organization" },
         image: SITE_URL,
-        description: b.desc,
+        description: desc,
       };
       if (b.forSale && b.priceKnown) {
         entry.offers = {
@@ -72,11 +75,35 @@ export default function StructuredData() {
     itemListElement: bookItems,
   };
 
+  const faq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Comment envoyer mon manuscrit à la maison d'édition Astres Noirs ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Les Éditions Astres Noirs n'acceptent plus les manuscrits envoyés par simple e-mail. Pour soumettre un manuscrit, rendez-vous sur astresnoirs.net, section « Vous êtes auteur ? », connectez-vous avec votre compte Google, puis remplissez le formulaire (titre, genre, résumé et fichier PDF ou Word). Vous recevez une confirmation automatique et pouvez suivre l'avancement de votre dossier en temps réel depuis votre espace auteur.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I submit my manuscript to Éditions Astres Noirs?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Éditions Astres Noirs no longer accepts manuscripts sent by plain email. To submit a manuscript, go to astresnoirs.net, to the \"Are you an author?\" section, sign in with your Google account, then fill out the form (title, genre, summary and a PDF or Word file). You'll receive an automatic confirmation and can track your submission's progress in real time from your author space.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json">{JSON.stringify(organization)}</script>
       <script type="application/ld+json">{JSON.stringify(website)}</script>
       <script type="application/ld+json">{JSON.stringify(itemList)}</script>
+      <script type="application/ld+json">{JSON.stringify(faq)}</script>
     </>
   );
 }
